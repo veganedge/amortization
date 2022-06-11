@@ -68,10 +68,10 @@ function Advanced() {
                     <Form.Control type="text" placeholder="still working on this" />
                   </Form.Group>
                   <Col className="text-center">
-                    <Button variant="outline-secondary" className="m-2">
+                    <Button type="reset" variant="outline-secondary" className="m-2">
                       Reset
                     </Button>
-                    <Button variant="secondary" className="m-2">
+                    <Button type="submit" variant="secondary" className="m-2">
                       Calculate
                     </Button>
                   </Col>

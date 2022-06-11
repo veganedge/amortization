@@ -17,16 +17,16 @@ function AdvancedCalculated() {
                 <h3>$monthly calculated</h3>
                 <h5 className="mt-3">Pricipal Paid (P)</h5>
                 {/* MAKE BLUE */}
-                <h5>$principal calculated</h5>
+                <h6>$principal calculated</h6>
                 <h5 className="mt-3">Interest Paid (I)</h5>
                 {/* MAKE YELLOW */}
-                <h5>$interest calculated</h5>
+                <h6>$interest calculated</h6>
                 <h5 className="mt-3">Extra Repayments Paid (E)</h5>
                 {/* MAKE _____ */}
-                <h5>$extra repayments calculated</h5>
+                <h6>$extra repayments calculated</h6>
                 <h5 className="mt-3">Expenses Paid (X)</h5>
                 {/* MAKE _____ */}
-                <h5>$expenses calculated</h5>
+                <h6>$expenses calculated</h6>
                 <h4 className="mt-3">Total Paid (P+I+E+X)</h4>
                 {/* MAKE GREEN */}
                 <h3>$total calculated</h3>

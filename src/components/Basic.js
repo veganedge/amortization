@@ -48,7 +48,7 @@ function Basic() {
                     >
                       Reset
                     </Button>
-                    <Button variant="secondary" className="m-2">
+                    <Button type="submit" variant="secondary" className="m-2">
                       Calculate
                     </Button>
                   </Col>
