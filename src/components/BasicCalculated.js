@@ -7,7 +7,7 @@ function BasicCalculated() {
       <Container className="mt-5">
         <Row>
           <Col>
-            <Card bg="light" border="secondary" className="shadow">
+            <Card bg="light" border="secondary" className="shadow-lg">
               <Card.Header className="text-center">
                 <h2>Results</h2>
               </Card.Header>
@@ -24,7 +24,7 @@ function BasicCalculated() {
                 <h4 className="mt-3">Total Paid (P+I)</h4>
                 {/* MAKE GREEN */}
                 <h3>$total calculated</h3>
-                <Button variant="secondary">Email Results</Button>
+                <Button type="button" variant="secondary">Email Results</Button>
               </Card.Body>
             </Card>
           </Col>

@@ -7,14 +7,13 @@ import Basic from "../components/Basic";
 import Advanced from "../components/Advanced";
 import BasicResultsMockup from "../components/BasicResultsMockup";
 import NoPageFound from "../components/NoPageFound";
-// Style Imports
-import "./Home.module.css";
 import AdvancedResultsMockup from "../components/AdvancedResultsMockup";
+
 
 function Home() {
   return (
     <>
-      <Navbar bg="light" variant="light">
+      <Navbar bg="light" variant="light" className="shadow">
         <Container>
           <Row>
             <Navbar.Brand>Loan Amortization Calculator</Navbar.Brand>
