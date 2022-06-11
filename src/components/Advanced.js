@@ -14,7 +14,7 @@ function Advanced() {
               <Card.Body>
                 <Form method="GET">
                   <Form.Group>
-                    <Form.Label for="loan-amount">Loan Amount:</Form.Label>
+                    <Form.Label htmlFor="loan-amount">Loan Amount:</Form.Label>
                     <Form.Control
                       type="number"
                       id="loan-amount"
@@ -25,7 +25,7 @@ function Advanced() {
                     />
                   </Form.Group>
                   <Form.Group className="mt-4">
-                    <Form.Label for="annual-interest-rate">
+                    <Form.Label htmlFor="annual-interest-rate">
                       Annual Interest Rate:
                     </Form.Label>
                     <Form.Control
@@ -41,7 +41,7 @@ function Advanced() {
                   <Row className="mb-4">
                     <Col xs={8}>
                       <Form.Group className="mt-4">
-                        <Form.Label for="loan-term">Loan Term:</Form.Label>
+                        <Form.Label htmlFor="loan-term">Loan Term:</Form.Label>
                         <Form.Control
                           type="number"
                           id="loan-term"
@@ -54,7 +54,7 @@ function Advanced() {
                     </Col>
                     <Col>
                       <Form.Group className="mt-4">
-                        <Form.Label for="term-unit">Term Unit</Form.Label>
+                        <Form.Label htmlFor="term-unit">Term Unit</Form.Label>
                         <Form.Select id="term-unit" name="term-unit">
                           <option value="years">Years</option>
                           <option value="months">Months</option>

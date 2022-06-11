@@ -1,7 +1,18 @@
 // React Bootstrap Imports
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 
+
+
+
 function Basic() {
+
+  //this doesn't work at all even with onclick - it says "loan-amount" element is null...
+  //not sure why it's checking it before onclick event
+  const displayLoanAmount = () => {
+    let loanAmountValue = document.getElementById("loan-amount").value;
+    document.getElementById("display-loan-amount").innerHTML(loanAmountValue)
+  }
+
   return (
     <>
       <Container className="mt-5">
@@ -14,7 +25,7 @@ function Basic() {
               <Card.Body>
                 <Form method="GET">
                   <Form.Group>
-                    <Form.Label for="loan-amount">Loan Amount:</Form.Label>
+                    <Form.Label htmlFor="loan-amount">Loan Amount:</Form.Label>
                     <Form.Control
                       type="number"
                       id="loan-amount"
@@ -25,7 +36,7 @@ function Basic() {
                     />
                   </Form.Group>
                   <Form.Group className="mt-4">
-                    <Form.Label for="annual-interest-rate">
+                    <Form.Label htmlFor="annual-interest-rate">
                       Annual Interest Rate:
                     </Form.Label>
                     <Form.Control
@@ -41,7 +52,7 @@ function Basic() {
                   <Row className="mb-4">
                     <Col xs={8}>
                       <Form.Group className="mt-4">
-                        <Form.Label for="loan-term">Loan Term:</Form.Label>
+                        <Form.Label htmlFor="loan-term">Loan Term:</Form.Label>
                         <Form.Control
                           type="number"
                           id="loan-term"
@@ -54,7 +65,7 @@ function Basic() {
                     </Col>
                     <Col>
                       <Form.Group className="mt-4">
-                        <Form.Label for="term-unit">Term Unit</Form.Label>
+                        <Form.Label htmlFor="term-unit">Term Unit</Form.Label>
                         <Form.Select id="term-unit" name="term-unit">
                           <option>Years</option>
                           <option>Months</option>
@@ -83,6 +94,7 @@ function Basic() {
           </Col>
         </Row>
       </Container>
+      <p id="display-loan-amount"></p>
     </>
   );
 }
