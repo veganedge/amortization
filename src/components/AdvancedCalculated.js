@@ -5,8 +5,8 @@ function AdvancedCalculated() {
   return (
     <>
       <Container className="mt-5">
-        <Row>
-          <Col>
+        <Row style={{justifyContent: 'center'}}>
+          <Col xs={10} md={8} lg={6} xl={5} xxl={4}>
             <Card bg="light" border="secondary" className="shadow-lg">
               <Card.Header className="text-center">
                 <h2>Results</h2>
