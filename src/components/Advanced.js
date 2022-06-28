@@ -1,3 +1,7 @@
+// React Imports
+import AdvancedCalculated from "./AdvancedCalculated";
+import { useState } from "react";
+
 // React Bootstrap Imports
 import {
   Button,
@@ -14,6 +18,15 @@ import {
 
 
 function Advanced() {
+  
+  const [showResults, setShowResults] = useState(false);
+  const showResultsHandler = (event) => {
+    event.preventDefault();
+    setShowResults(true);
+  };
+  
+  const resetHandler = () => setShowResults(false);
+
   return (
     <>
       <Container className="mt-5">
@@ -24,7 +37,7 @@ function Advanced() {
                 <h2>Advanced Calculation</h2>
               </Card.Header>
               <Card.Body>
-                <Form method="GET">
+                <Form method="GET"  onSubmit={showResultsHandler}>
                   <Row className="mb-3 justify-content-center">
                     <Col xs={8}>
                       <FormGroup>
@@ -65,15 +78,18 @@ function Advanced() {
                   <Row className="mb-4 justify-content-center">
                     <Col xs={5}>
                       <Form.Group>
-                        <Form.Label htmlFor="loan-term">Loan Term:</Form.Label>
-                        <Form.Control
-                          type="number"
-                          id="loan-term"
-                          name="loan-term"
-                          placeholder="# of ------->"
-                          min="1"
-                          required
-                        />
+                        <Form.Label htmlFor="loan-term">Term Length:</Form.Label>
+                        <InputGroup>
+                          <Form.Control
+                            type="number"
+                            id="loan-term"
+                            name="loan-term"
+                            placeholder="# of"
+                            min="1"
+                            required
+                          />
+                          <InputGroup.Text>&rarr;</InputGroup.Text>
+                        </InputGroup>
                       </Form.Group>
                     </Col>
                     <Col xs="auto">
@@ -142,6 +158,7 @@ function Advanced() {
                       type="reset"
                       variant="outline-secondary"
                       className="m-2"
+                      onClick={resetHandler}
                     >
                       Reset
                     </Button>
@@ -155,6 +172,7 @@ function Advanced() {
           </Col>
         </Row>
       </Container>
+      { showResults ? <AdvancedCalculated /> : null }
     </>
   );
 }

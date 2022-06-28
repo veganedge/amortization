@@ -4,10 +4,18 @@ import { Button, Card, Col, Container, Row } from "react-bootstrap";
 function AdvancedCalculated() {
   return (
     <>
-      <Container className="mt-5">
-        <Row style={{justifyContent: 'center'}}>
+      <Container className="mt-5 mb-5">
+        <Row className="justify-content-center">
           <Col xs={10} md={8} lg={6} xl={5} xxl={4}>
             <Card bg="light" border="secondary" className="shadow-lg">
+              <Card.Header className="text-center">
+                <h2>Loan Details</h2>
+              </Card.Header>
+              <Card.Body className="text-center">
+                <h6>$Loan Amount</h6>
+                <h6>$Interest Rate</h6>
+                <h6>$Term Length $Term Unit</h6>
+              </Card.Body>
               <Card.Header className="text-center">
                 <h2>Results</h2>
               </Card.Header>
