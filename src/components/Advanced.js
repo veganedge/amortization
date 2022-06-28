@@ -1,11 +1,23 @@
 // React Bootstrap Imports
-import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Col,
+  Container,
+  Form,
+  FormControl,
+  FormGroup,
+  FormLabel,
+  InputGroup,
+  Row,
+} from "react-bootstrap";
+
 
 function Advanced() {
   return (
     <>
       <Container className="mt-5">
-        <Row style={{justifyContent: 'center'}}>
+        <Row className="justify-content-center">
           <Col xs={10} md={8} lg={6} xl={5} xxl={4}>
             <Card bg="light" border="secondary" className="shadow-lg">
               <Card.Header className="text-center">
@@ -13,42 +25,46 @@ function Advanced() {
               </Card.Header>
               <Card.Body>
                 <Form method="GET">
-                  <Row className="mb-4" style={{justifyContent: 'center'}}>
+                  <Row className="mb-3 justify-content-center">
+                    <Col xs={8}>
+                      <FormGroup>
+                        <FormLabel htmlFor="loan-amount">LoanAmount:</FormLabel>
+                        <InputGroup>
+                          <InputGroup.Text>$</InputGroup.Text>
+                          <FormControl
+                            aria-label="Amount (to the nearest dollar)"
+                            type="number"
+                            id="loan-amount"
+                            min="1"
+                            required
+                          />
+                        </InputGroup>
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row className="mb-3 justify-content-center">
+                    <Col xs={8}>
+                      <FormGroup>
+                        <FormLabel htmlFor="annual-interest-rate">
+                          Annual Interest Rate:
+                        </FormLabel>
+                        <InputGroup>
+                          <FormControl
+                            aria-label="Annual Interest Rate (to two decimal places)"
+                            type="number"
+                            id="annual-interest-rate"
+                            min="0.01"
+                            step="0.01"
+                            required
+                          />
+                          <InputGroup.Text>%</InputGroup.Text>
+                        </InputGroup>
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row className="mb-4 justify-content-center">
                     <Col xs={5}>
                       <Form.Group>
-                        <Form.Label htmlFor="loan-amount">Loan Amount:</Form.Label>
-                        <Form.Control
-                          type="number"
-                          id="loan-amount"
-                          name="loan-amount"
-                          placeholder="$"
-                          min="1"
-                          required
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row className="mb-4" style={{justifyContent: 'center'}}>
-                    <Col xs={6}>
-                      <Form.Group className="mt-4">
-                        <Form.Label htmlFor="annual-interest-rate">
-                          Annual Interest Rate:
-                        </Form.Label>
-                        <Form.Control
-                          type="number"
-                          id="annual-interest-rate"
-                          name="annual-interest-rate"
-                          placeholder="%"
-                          step="0.01"
-                          min="0.01"
-                          required
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row className="mb-4" style={{justifyContent: 'center'}}>
-                    <Col xs={5}>
-                      <Form.Group className="mt-4">
                         <Form.Label htmlFor="loan-term">Loan Term:</Form.Label>
                         <Form.Control
                           type="number"
@@ -61,13 +77,13 @@ function Advanced() {
                       </Form.Group>
                     </Col>
                     <Col xs="auto">
-                      <Form.Group className="mt-4">
-                        <Form.Label htmlFor="term-unit">Term Unit</Form.Label>
+                      <Form.Group>
+                        <Form.Label htmlFor="term-unit">Term Unit:</Form.Label>
                         <Form.Select id="term-unit" name="term-unit">
-                          <option value="years">Years</option>
-                          <option value="months">Months</option>
-                          <option value="weeks">Weeks</option>
-                          <option value="days">Days</option>
+                          <option>Years</option>
+                          <option>Months</option>
+                          <option>Weeks</option>
+                          <option>Days</option>
                         </Form.Select>
                       </Form.Group>
                     </Col>

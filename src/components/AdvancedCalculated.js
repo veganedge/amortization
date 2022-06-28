@@ -13,23 +13,17 @@ function AdvancedCalculated() {
               </Card.Header>
               <Card.Body className="text-center">
                 <h4 className="mt-3">Monthly Repayment (EMI)</h4>
-                {/* MAKE RED */}
-                <h3>$monthly calculated</h3>
+                <h3 className="text-danger">$monthly calculated</h3>
                 <h5 className="mt-3">Pricipal Paid (P)</h5>
-                {/* MAKE BLUE */}
-                <h6>$principal calculated</h6>
+                <h6 className="text-primary">$principal calculated</h6>
                 <h5 className="mt-3">Interest Paid (I)</h5>
-                {/* MAKE YELLOW */}
-                <h6>$interest calculated</h6>
+                <h6 className="text-warning">$interest calculated</h6>
                 <h5 className="mt-3">Extra Repayments Paid (E)</h5>
-                {/* MAKE _____ */}
-                <h6>$extra repayments calculated</h6>
+                <h6 className="text-secondary">$extra repayments calculated</h6>
                 <h5 className="mt-3">Expenses Paid (X)</h5>
-                {/* MAKE _____ */}
-                <h6>$expenses calculated</h6>
+                <h6 className="text-info">$expenses calculated</h6>
                 <h4 className="mt-3">Total Paid (P+I+E+X)</h4>
-                {/* MAKE GREEN */}
-                <h3>$total calculated</h3>
+                <h3 className="text-success">$total calculated</h3>
                 <Button type="button" variant="secondary">Email Results</Button>
               </Card.Body>
             </Card>
