@@ -9,6 +9,7 @@ function BasicCalculated({
 }) {
 
   //correct for years selection (probably need some if statements for other selections and 12 would be a dynamic variable)
+  //also need to figure out how to pass m and i to BasicTable.js component
   let n = termLengthValue * 12.0;
   let i = annualInterestRateValue / 100.0 / 12.0;
   let m =

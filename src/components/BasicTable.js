@@ -1,7 +1,13 @@
 // React Bootstrap Imports
-import { Table, Col, Container, Row } from "react-bootstrap";
+import { Table, Col, Row } from "react-bootstrap";
 
-const BasicTable = () => {
+const BasicTable = ({loanAmountValue, m, i}) => {
+   
+    // need to figure out how to pass m and i to this component
+    let amountToInterest = loanAmountValue * i;
+    let amountToPrincipal = m - amountToInterest;
+    let loanBalance = loanAmountValue - m;
+
     return (
         <>
             <Row className="justify-content-center" >
@@ -21,9 +27,9 @@ const BasicTable = () => {
                             </tr>
                             <tr>
                                 <td>July</td>
-                                <td>$AmountToPrincipal</td>
-                                <td>$AmountToInterest</td>
-                                <td>$LoanBalance - ($AmountToPrincipal + $AmountToInterest)</td>
+                                <td>{amountToPrincipal}</td>
+                                <td>{amountToInterest}</td>
+                                <td>{loanBalance}</td>
                             </tr>
                             <tr>
                                 <td>August</td>

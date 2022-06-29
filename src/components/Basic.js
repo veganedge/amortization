@@ -144,7 +144,9 @@ function Basic() {
                 termLengthValue={termLengthValue}
                 termUnitValue={termUnitValue}
                 />
-                <BasicTable />
+                <BasicTable 
+                loanAmountValue={loanAmountValue}
+                />
               </>
             ) : null}
           </Col>
