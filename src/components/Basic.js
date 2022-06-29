@@ -32,7 +32,6 @@ function Basic() {
     setAnnualInterestRateValue(event.target.annual_interest_rate.value);
     setTermLengthValue(event.target.term_length.value);
     setTermUnitValue(event.target.term_unit.value);
-
   };
 
   const resetHandler = () => setShowResults(false);
