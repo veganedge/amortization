@@ -1,15 +1,20 @@
 // React Bootstrap Imports
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 
-function BasicCalculated({loanAmountValue, annualInterestRateValue, termLengthValue, termUnitValue}) {
-
+function BasicCalculated({
+  loanAmountValue,
+  annualInterestRateValue,
+  termLengthValue,
+  termUnitValue,
+}) {
+  
   //correct for years selection (probably need some if statements for other selections and 12 would be a dynamic variable)
-  let n = termLengthValue * 12.00; 
-  let i = annualInterestRateValue / 100.00 / 12.00;
-  let m = loanAmountValue * ( i * ( Math.pow((1+i), n) ) ) / ( Math.pow((1+i), n) -1 );
+  let n = termLengthValue * 12.0;
+  let i = annualInterestRateValue / 100.0 / 12.0;
+  let m =
+    (loanAmountValue * (i * Math.pow(1 + i, n))) / (Math.pow(1 + i, n) - 1);
   let c = n * m;
   let totalInterestPaid = c - loanAmountValue;
-
 
   return (
     <>
@@ -23,7 +28,9 @@ function BasicCalculated({loanAmountValue, annualInterestRateValue, termLengthVa
               <Card.Body className="text-center">
                 <h6>Loan Amount: ${loanAmountValue}</h6>
                 <h6>Annual Interest Rate: {annualInterestRateValue}%</h6>
-                <h6>Term Length: {termLengthValue} {termUnitValue}</h6>
+                <h6>
+                  Term Length: {termLengthValue} {termUnitValue}
+                </h6>
               </Card.Body>
               <Card.Header className="text-center">
                 <h2>Results</h2>
@@ -37,7 +44,9 @@ function BasicCalculated({loanAmountValue, annualInterestRateValue, termLengthVa
                 <h5 className="text-info">${totalInterestPaid.toFixed(2)}</h5>
                 <h4 className="mt-3">Total Paid (P+I)</h4>
                 <h3 className="text-success">${c.toFixed(2)}</h3>
-                <Button type="button" variant="secondary">Email Results</Button>
+                <Button type="button" variant="secondary">
+                  Email Results
+                </Button>
               </Card.Body>
             </Card>
           </Col>

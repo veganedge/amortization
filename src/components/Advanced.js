@@ -16,13 +16,12 @@ import {
   Row,
 } from "react-bootstrap";
 
-
 function Advanced() {
   
-  const [loanAmountValue, setLoanAmountValue] = useState("")
-  const [annualInterestRateValue, setAnnualInterestRateValue] = useState("")
-  const [termLengthValue, setTermLengthValue] = useState("")
-  const [termUnitValue, setTermUnitValue] = useState("Years")
+  const [loanAmountValue, setLoanAmountValue] = useState("");
+  const [annualInterestRateValue, setAnnualInterestRateValue] = useState("");
+  const [termLengthValue, setTermLengthValue] = useState("");
+  const [termUnitValue, setTermUnitValue] = useState("Years");
 
   const [showResults, setShowResults] = useState(false);
   const showResultsHandler = (event) => {
@@ -33,7 +32,7 @@ function Advanced() {
     setTermLengthValue(event.target.term_length.value);
     setTermUnitValue(event.target.term_unit.value);
   };
-  
+
   const resetHandler = () => setShowResults(false);
 
   return (
@@ -46,7 +45,7 @@ function Advanced() {
                 <h2>Advanced Calculation</h2>
               </Card.Header>
               <Card.Body>
-                <Form method="GET"  onSubmit={showResultsHandler}>
+                <Form method="GET" onSubmit={showResultsHandler}>
                   <Row className="mb-3 justify-content-center">
                     <Col xs={8}>
                       <FormGroup>
@@ -87,7 +86,9 @@ function Advanced() {
                   <Row className="mb-4 justify-content-center">
                     <Col xs={5}>
                       <Form.Group>
-                        <Form.Label htmlFor="term_length">Term Length:</Form.Label>
+                        <Form.Label htmlFor="term_length">
+                          Term Length:
+                        </Form.Label>
                         <InputGroup>
                           <Form.Control
                             type="number"
@@ -181,7 +182,14 @@ function Advanced() {
           </Col>
         </Row>
       </Container>
-      { showResults ? <AdvancedCalculated loanAmountValue={loanAmountValue} annualInterestRateValue={annualInterestRateValue} termLengthValue={termLengthValue} termUnitValue={termUnitValue} /> : null }
+      {showResults ? (
+        <AdvancedCalculated
+          loanAmountValue={loanAmountValue}
+          annualInterestRateValue={annualInterestRateValue}
+          termLengthValue={termLengthValue}
+          termUnitValue={termUnitValue}
+        />
+      ) : null}
     </>
   );
 }

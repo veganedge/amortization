@@ -16,13 +16,11 @@ import {
   FormLabel,
 } from "react-bootstrap";
 
-
 function Basic() {
-
-  const [loanAmountValue, setLoanAmountValue] = useState("")
-  const [annualInterestRateValue, setAnnualInterestRateValue] = useState("")
-  const [termLengthValue, setTermLengthValue] = useState("")
-  const [termUnitValue, setTermUnitValue] = useState("Years")
+  const [loanAmountValue, setLoanAmountValue] = useState("");
+  const [annualInterestRateValue, setAnnualInterestRateValue] = useState("");
+  const [termLengthValue, setTermLengthValue] = useState("");
+  const [termUnitValue, setTermUnitValue] = useState("Years");
 
   const [showResults, setShowResults] = useState(false);
   const showResultsHandler = (event) => {
@@ -35,7 +33,6 @@ function Basic() {
   };
 
   const resetHandler = () => setShowResults(false);
-
 
   return (
     <>
@@ -88,7 +85,9 @@ function Basic() {
                   <Row className="mb-4 justify-content-center">
                     <Col xs={5}>
                       <Form.Group>
-                        <Form.Label htmlFor="term_length">Term Length:</Form.Label>
+                        <Form.Label htmlFor="term_length">
+                          Term Length:
+                        </Form.Label>
                         <InputGroup>
                           <Form.Control
                             type="number"
@@ -124,11 +123,7 @@ function Basic() {
                       >
                         Reset
                       </Button>
-                      <Button
-                        type="submit"
-                        variant="secondary"
-                        className="m-2"
-                      >
+                      <Button type="submit" variant="secondary" className="m-2">
                         Calculate
                       </Button>
                     </Col>
@@ -139,7 +134,14 @@ function Basic() {
           </Col>
         </Row>
       </Container>
-      { showResults ? <BasicCalculated loanAmountValue={loanAmountValue} annualInterestRateValue={annualInterestRateValue} termLengthValue={termLengthValue} termUnitValue={termUnitValue} /> : null }
+      {showResults ? (
+        <BasicCalculated
+          loanAmountValue={loanAmountValue}
+          annualInterestRateValue={annualInterestRateValue}
+          termLengthValue={termLengthValue}
+          termUnitValue={termUnitValue}
+        />
+      ) : null}
     </>
   );
 }
