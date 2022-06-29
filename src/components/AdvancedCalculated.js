@@ -7,7 +7,7 @@ function AdvancedCalculated({
   termLengthValue,
   termUnitValue,
 }) {
-  
+
   //correct for years selection (probably need some if statements for other selections and 12 would be a dynamic variable)
   let n = termLengthValue * 12.0;
   let i = annualInterestRateValue / 100.0 / n;
@@ -39,11 +39,9 @@ function AdvancedCalculated({
                 <h4 className="mt-3">Monthly Repayment (EMI)</h4>
                 <h3 className="text-danger">${m.toFixed(2)}</h3>
                 <h5 className="mt-3">Pricipal Paid (P)</h5>
-                <h6 className="text-primary">${loanAmountValue}</h6>
+                <h5 className="text-primary">${loanAmountValue}</h5>
                 <h5 className="mt-3">Interest Paid (I)</h5>
-                <h6 className="text-warning">
-                  ${totalInterestPaid.toFixed(2)}
-                </h6>
+                <h5 className="text-info">${totalInterestPaid.toFixed(2)}</h5>
                 <h5 className="mt-3">Extra Repayments Paid (E)</h5>
                 <h6 className="text-secondary">$extra repayments calculated</h6>
                 <h5 className="mt-3">Expenses Paid (X)</h5>

@@ -15,6 +15,7 @@ import {
   FormGroup,
   FormLabel,
 } from "react-bootstrap";
+import BasicTable from "./BasicTable";
 
 function Basic() {
   const [loanAmountValue, setLoanAmountValue] = useState("");
@@ -131,17 +132,24 @@ function Basic() {
                 </Form>
               </Card.Body>
             </Card>
+          </Col> 
+        </Row>
+        <Row>
+          <Col>
+            {showResults ? (
+              <>
+                <BasicCalculated
+                loanAmountValue={loanAmountValue}
+                annualInterestRateValue={annualInterestRateValue}
+                termLengthValue={termLengthValue}
+                termUnitValue={termUnitValue}
+                />
+                <BasicTable />
+              </>
+            ) : null}
           </Col>
         </Row>
       </Container>
-      {showResults ? (
-        <BasicCalculated
-          loanAmountValue={loanAmountValue}
-          annualInterestRateValue={annualInterestRateValue}
-          termLengthValue={termLengthValue}
-          termUnitValue={termUnitValue}
-        />
-      ) : null}
     </>
   );
 }
