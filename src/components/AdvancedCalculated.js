@@ -5,16 +5,11 @@ function AdvancedCalculated({
   loanAmountValue,
   annualInterestRateValue,
   termLengthValue,
-  termUnitValue,
+  monthlyRepaymentAmount,
+  totalInterestPaid,
+  totalAmountPaid
 }) {
-
-  //correct for years selection (probably need some if statements for other selections and 12 would be a dynamic variable)
-  let n = termLengthValue * 12.0;
-  let i = annualInterestRateValue / 100.0 / n;
-  let m =
-    (loanAmountValue * (i * Math.pow(1 + i, n))) / (Math.pow(1 + i, n) - 1);
-  let c = n * m;
-  let totalInterestPaid = c - loanAmountValue;
+  
 
   return (
     <>
@@ -28,26 +23,27 @@ function AdvancedCalculated({
               <Card.Body className="text-center">
                 <h6>Loan Amount: ${loanAmountValue}</h6>
                 <h6>Annual Interest Rate: {annualInterestRateValue}%</h6>
-                <h6>
-                  Term Length: {termLengthValue} {termUnitValue}
-                </h6>
+                <h6>Term Length: {termLengthValue} years</h6>
               </Card.Body>
               <Card.Header className="text-center">
                 <h2>Results</h2>
               </Card.Header>
               <Card.Body className="text-center">
-                <h4 className="mt-3">Monthly Repayment (EMI)</h4>
-                <h3 className="text-danger">${m.toFixed(2)}</h3>
-                <h5 className="mt-3">Pricipal Paid (P)</h5>
-                <h5 className="text-primary">${loanAmountValue}</h5>
-                <h5 className="mt-3">Interest Paid (I)</h5>
+                <h4 className="mt-3">Monthly Repayment</h4>
+                <h3 className="text-danger">${monthlyRepaymentAmount.toFixed(2)}</h3>
+                <h5 className="mt-3">Interest Paid</h5>
                 <h5 className="text-info">${totalInterestPaid.toFixed(2)}</h5>
-                <h5 className="mt-3">Extra Repayments Paid (E)</h5>
+                <h5 className="mt-3">Extra Repayments Paid</h5>
                 <h6 className="text-secondary">$extra repayments calculated</h6>
-                <h5 className="mt-3">Expenses Paid (X)</h5>
-                <h6 className="text-info">$expenses calculated</h6>
-                <h4 className="mt-3">Total Paid (P+I+E+X)</h4>
-                <h3 className="text-success">${c.toFixed(2)} + E + X</h3>
+                <h5 className="mt-3">Expenses Paid</h5>
+                <h6 className="text-warning">$expenses calculated</h6>
+                <h4 className="mt-3">Total Paid</h4>
+                <h6 className="text-muted">
+                  principal, interest, extra payments, and expenses
+                </h6>
+                <h3 className="text-success">${totalAmountPaid.toFixed(2)} + E + X</h3>
+
+                {/* DOES NOTHING YET */}
                 <Button type="button" variant="secondary">
                   Email Results
                 </Button>

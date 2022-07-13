@@ -18,26 +18,47 @@ import {
 
 function Advanced() {
   
-  const [loanAmountValue, setLoanAmountValue] = useState("");
-  const [annualInterestRateValue, setAnnualInterestRateValue] = useState("");
-  const [termLengthValue, setTermLengthValue] = useState("");
-  const [termUnitValue, setTermUnitValue] = useState("Years");
+  // Defining the initial state:
+  const initialDetails = {
+    showResults: false,
+    loanAmountValue: 0,
+    annualInterestRateValue: 0,
+    termLengthValue: 0
+  }
 
-  const [showResults, setShowResults] = useState(false);
-  const showResultsHandler = (event) => {
+  // Setting the state property "details" and initial value for it:
+  const [details, setDetails] = useState(initialDetails);
+
+  // Getting the user input values (Calculate button onClick event):
+  const onFormSubmit = (event) => {
     event.preventDefault();
-    setShowResults(true);
-    setLoanAmountValue(event.target.loan_amount.value);
-    setAnnualInterestRateValue(event.target.annual_interest_rate.value);
-    setTermLengthValue(event.target.term_length.value);
-    setTermUnitValue(event.target.term_unit.value);
-  };
+    const updatedDetails = {
+          showResults: true,
+          loanAmountValue: event.target.loan_amount.value,
+          annualInterestRateValue: event.target.annual_interest_rate.value,
+          termLengthValue: event.target.term_length.value
+    };
 
-  const resetHandler = () => setShowResults(false);
+    // Updating the state to the user input values:
+    setDetails(updatedDetails);
+  }
+
+  // Making calculations based on user inputs:
+  const termLengthInMonths = details.termLengthValue * 12.0;
+  const monthlyInterestRate = details.annualInterestRateValue / 100.00 / 12.0;
+  const monthlyRepaymentAmount = (details.loanAmountValue * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, termLengthInMonths))) / (Math.pow(1 + monthlyInterestRate, termLengthInMonths) - 1);
+  const totalAmountPaid = termLengthInMonths * monthlyRepaymentAmount;
+  const totalInterestPaid = totalAmountPaid - details.loanAmountValue;
+
+  // Resetting form/user input values (Reset button onClick event):
+  const resetHandler = () => setDetails(initialDetails);
+
 
   return (
     <>
       <Container className="mt-5">
+
+        {/* CARD CONTAINING FORM OF USER INPUTS TO ENTER */}
         <Row className="justify-content-center">
           <Col xs={10} md={8} lg={6} xl={5} xxl={4}>
             <Card bg="light" border="secondary" className="shadow-lg">
@@ -45,11 +66,13 @@ function Advanced() {
                 <h2>Advanced Calculation</h2>
               </Card.Header>
               <Card.Body>
-                <Form method="GET" onSubmit={showResultsHandler}>
+                <Form method="GET" onSubmit={onFormSubmit}>
+
+                  {/* LOAN AMOUNT INPUT */}
                   <Row className="mb-3 justify-content-center">
                     <Col xs={8}>
                       <FormGroup>
-                        <FormLabel htmlFor="loan_amount">LoanAmount:</FormLabel>
+                        <FormLabel htmlFor="loan_amount">Loan Amount:</FormLabel>
                         <InputGroup>
                           <InputGroup.Text>$</InputGroup.Text>
                           <FormControl
@@ -63,6 +86,8 @@ function Advanced() {
                       </FormGroup>
                     </Col>
                   </Row>
+
+                  {/* ANNUAL INTEREST RATE INPUT */}
                   <Row className="mb-3 justify-content-center">
                     <Col xs={8}>
                       <FormGroup>
@@ -83,6 +108,8 @@ function Advanced() {
                       </FormGroup>
                     </Col>
                   </Row>
+
+                  {/* TERM LENGTH INPUT */}
                   <Row className="mb-4 justify-content-center">
                     <Col xs={5}>
                       <Form.Group>
@@ -98,22 +125,13 @@ function Advanced() {
                             min="1"
                             required
                           />
-                          <InputGroup.Text>&rarr;</InputGroup.Text>
+                          <InputGroup.Text>Years</InputGroup.Text>
                         </InputGroup>
                       </Form.Group>
                     </Col>
-                    <Col xs="auto">
-                      <Form.Group>
-                        <Form.Label htmlFor="term_unit">Term Unit:</Form.Label>
-                        <Form.Select id="term_unit" name="term_unit">
-                          <option>Years</option>
-                          <option>Months</option>
-                          <option>Weeks</option>
-                          <option>Days</option>
-                        </Form.Select>
-                      </Form.Group>
-                    </Col>
                   </Row>
+
+                  {/* ADVANCED (EXTRA) INPUTS - NOT COMPLETE/WORKING YET */}
                   <Form.Group className="mt-4">
                     <Form.Label>Loan Start Date:</Form.Label>
                     <Form.Control
@@ -163,6 +181,8 @@ function Advanced() {
                       placeholder="still working on this"
                     />
                   </Form.Group>
+
+                  {/* RESET BUTTON */}
                   <Col className="text-center">
                     <Button
                       type="reset"
@@ -172,6 +192,8 @@ function Advanced() {
                     >
                       Reset
                     </Button>
+
+                    {/* SUBMIT BUTTON */}
                     <Button type="submit" variant="secondary" className="m-2">
                       Calculate
                     </Button>
@@ -181,15 +203,23 @@ function Advanced() {
             </Card>
           </Col>
         </Row>
+      
+        {/* SHOW RESULTS AND TABLE COMPONENTS IF USER SUBMITTED INPUT VALUES */}
+        <Row>
+          <Col>
+            {details.showResults ? (
+              <AdvancedCalculated
+                loanAmountValue={details.loanAmountValue}
+                annualInterestRateValue={details.annualInterestRateValue}
+                termLengthValue={details.termLengthValue}
+                monthlyRepaymentAmount={monthlyRepaymentAmount}
+                totalInterestPaid={totalInterestPaid}
+                totalAmountPaid={totalAmountPaid}
+              />
+            ) : null}
+          </Col>
+        </Row>
       </Container>
-      {showResults ? (
-        <AdvancedCalculated
-          loanAmountValue={loanAmountValue}
-          annualInterestRateValue={annualInterestRateValue}
-          termLengthValue={termLengthValue}
-          termUnitValue={termUnitValue}
-        />
-      ) : null}
     </>
   );
 }
