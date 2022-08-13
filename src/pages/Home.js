@@ -1,6 +1,6 @@
 // React Router Imports
 import { Routes, Route } from "react-router-dom";
-// Bootstrap Imports
+// React Bootstrap Imports
 import { Navbar, Container, Nav, Row } from "react-bootstrap";
 // Component Imports
 import Basic from "../components/Basic";

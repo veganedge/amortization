@@ -1,7 +1,5 @@
 // React Imports
-import BasicCalculated from "./BasicCalculated";
 import { useState } from "react";
-
 // React Bootstrap Imports
 import {
   Button,
@@ -16,6 +14,8 @@ import {
   FormLabel,
 } from "react-bootstrap";
 import BasicTable from "./BasicTable";
+// Component Imports
+import BasicCalculated from "./BasicCalculated";
 
 
 function Basic() {

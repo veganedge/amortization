@@ -1,7 +1,5 @@
 // React Imports
-import AdvancedCalculated from "./AdvancedCalculated";
 import { useState } from "react";
-
 // React Bootstrap Imports
 import {
   Button,
@@ -15,6 +13,9 @@ import {
   InputGroup,
   Row,
 } from "react-bootstrap";
+// Component Imports
+import AdvancedCalculated from "./AdvancedCalculated";
+
 
 function Advanced() {
   

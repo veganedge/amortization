@@ -1,6 +1,7 @@
 // React Bootstrap Imports
 import { Table, Col, Row, Button } from "react-bootstrap";
 
+
 const BasicTable = ({ loanAmountValue, monthlyRepaymentAmount, monthlyInterestRate }) => {
   //   ISSUES FOR THIS COMPONENT
   // - create table rows, header for year, cells for month/amount to principal/amount to interest/loan balance based on info from Basic
@@ -23,7 +24,7 @@ const BasicTable = ({ loanAmountValue, monthlyRepaymentAmount, monthlyInterestRa
           >
             <thead>
               <tr>
-                <th>Date</th>
+                <th>Month</th>
                 <th>Principal</th>
                 <th>Interest</th>
                 <th>Remaining Loan Balance</th>
