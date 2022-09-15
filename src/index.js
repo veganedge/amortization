@@ -5,17 +5,31 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';
 // Style Imports
 import 'bootstrap/dist/css/bootstrap.css';
-import './globals.css';
 import 'react-bootstrap/dist/react-bootstrap.js';
+import './index.css';
 // Component Imports
 import Home from './pages/Home';
+import Main from './pages/Main';
+import Navigation from './components/Navigation';
+import FooterNavigation from './components/FooterNavigation';
 
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+{/*const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Router>
       <Home />
     </Router>
+  </React.StrictMode>
+);*/}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <Navigation />
+    <Router>
+      <Main />
+    </Router>
+    <FooterNavigation />
   </React.StrictMode>
 );

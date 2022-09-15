@@ -27,6 +27,12 @@ function Home() {
         <Route path="Advanced" element={<Advanced />} />
         <Route path="*" element={<NoPageFound />} />
       </Routes>
+      <footer class="text-center text-lg-start bg-white text-muted pt-3">
+        <div class="text-center p-4" style={{backgroundColor: "rgba(0, 0, 0, 0.05)"}}>
+          © 2021 Copyright:
+          <a class="text-reset fw-bold footer-brand" href="https://scottxbrown.dev/">SxB Development</a>
+        </div>
+    </footer>
     </>
   );
 }

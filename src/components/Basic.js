@@ -1,5 +1,7 @@
 // React Imports
 import { useState } from "react";
+// React Router Imports
+import { useSearchParams } from "react-router-dom";
 // React Bootstrap Imports
 import {
   Button,
@@ -17,49 +19,75 @@ import BasicTable from "./BasicTable";
 // Component Imports
 import BasicCalculated from "./BasicCalculated";
 
-
 function Basic() {
-  
-  // Defining the initial state:
+  // Defining the initial "details" state:
   const initialDetails = {
     showResults: false,
     loanAmountValue: 0,
     annualInterestRateValue: 0,
-    termLengthValue: 0
-  }
+    termLengthValue: 0,
+  };
+
+  // Defining the initial "searchParams" state:
+  const initialSearchParams = {
+    loanAmount: "",
+    annualInterestRate: "",
+    termLength: "",
+  };
 
   // Setting the state property "details" and initial value for it:
   const [details, setDetails] = useState(initialDetails);
+
+  // Setting the state property "searchParams" and initial value for it:
+  const [searchParams, setSearchParams] = useSearchParams(initialSearchParams);
 
   // Getting the user input values (Calculate button onClick event):
   const onFormSubmit = (event) => {
     event.preventDefault();
     const updatedDetails = {
-          showResults: true,
-          loanAmountValue: event.target.loan_amount.value,
-          annualInterestRateValue: event.target.annual_interest_rate.value,
-          termLengthValue: event.target.term_length.value
+      showResults: true,
+      loanAmountValue: event.target.loan_amount.value,
+      annualInterestRateValue: event.target.annual_interest_rate.value,
+      termLengthValue: event.target.term_length.value,
+    };
+    const updatedSearchParams = {
+      loanAmount: event.target.loan_amount.value,
+      annualInterestRate: event.target.annual_interest_rate.value,
+      termLength: event.target.term_length.value,
     };
 
-    // Updating the state to the user input values:
+    // Updating the "details" state to the user input values:
     setDetails(updatedDetails);
-  }
+
+    // Updating the "searchParams" state to the user input values:
+    setSearchParams(updatedSearchParams);
+  };
+
+  // Getting the searchParams to use as value of inputs if exist:
+  const loanAmountParam = searchParams.get("loanAmount");
+  const annualInterestRateParam = searchParams.get("annualInterestRate");
+  const termLengthParam = searchParams.get("termLength");
 
   // Making calculations based on user inputs:
   const termLengthInMonths = details.termLengthValue * 12.0;
-  const monthlyInterestRate = details.annualInterestRateValue / 100.00 / 12.0;
-  const monthlyRepaymentAmount = (details.loanAmountValue * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, termLengthInMonths))) / (Math.pow(1 + monthlyInterestRate, termLengthInMonths) - 1);
+  const monthlyInterestRate = details.annualInterestRateValue / 100.0 / 12.0;
+  const monthlyRepaymentAmount =
+    (details.loanAmountValue *
+      (monthlyInterestRate *
+        Math.pow(1 + monthlyInterestRate, termLengthInMonths))) /
+    (Math.pow(1 + monthlyInterestRate, termLengthInMonths) - 1);
   const totalAmountPaid = termLengthInMonths * monthlyRepaymentAmount;
   const totalInterestPaid = totalAmountPaid - details.loanAmountValue;
 
   // Resetting form/user input values (Reset button onClick event):
-  const resetHandler = () => setDetails(initialDetails);
-
+  const resetHandler = () => {
+    setDetails(initialDetails);
+    setSearchParams(initialSearchParams);
+  };
 
   return (
     <>
       <Container className="mt-5">
-
         {/* CARD CONTAINING FORM OF USER INPUTS TO ENTER */}
         <Row className="justify-content-center">
           <Col xs={10} md={8} lg={6} xl={5} xxl={4}>
@@ -69,12 +97,13 @@ function Basic() {
               </Card.Header>
               <Card.Body>
                 <Form method="GET" onSubmit={onFormSubmit}>
-
                   {/* LOAN AMOUNT INPUT */}
                   <Row className="mb-3 justify-content-center">
                     <Col xs={8}>
                       <FormGroup>
-                        <FormLabel htmlFor="loan_amount">Loan Amount:</FormLabel>
+                        <FormLabel htmlFor="loan_amount">
+                          Loan Amount:
+                        </FormLabel>
                         <InputGroup>
                           <InputGroup.Text>$</InputGroup.Text>
                           <FormControl
@@ -83,6 +112,9 @@ function Basic() {
                             id="loan_amount"
                             min="1"
                             required
+                            defaultValue={
+                              loanAmountParam ? loanAmountParam : null
+                            }
                           />
                         </InputGroup>
                       </FormGroup>
@@ -105,6 +137,11 @@ function Basic() {
                             max="100"
                             step="0.01"
                             required
+                            defaultValue={
+                              annualInterestRateParam
+                                ? annualInterestRateParam
+                                : null
+                            }
                           />
                           <InputGroup.Text>%</InputGroup.Text>
                         </InputGroup>
@@ -129,6 +166,9 @@ function Basic() {
                             // figure this out if we want them to be able to do months as well (like 18 months or something)
                             // step="0.083333333"
                             required
+                            defaultValue={
+                              termLengthParam ? termLengthParam : null
+                            }
                           />
                           <InputGroup.Text>Years</InputGroup.Text>
                         </InputGroup>
@@ -157,7 +197,7 @@ function Basic() {
                 </Form>
               </Card.Body>
             </Card>
-          </Col> 
+          </Col>
         </Row>
 
         {/* SHOW RESULTS AND TABLE COMPONENTS IF USER SUBMITTED INPUT VALUES */}
@@ -173,7 +213,7 @@ function Basic() {
                   totalInterestPaid={totalInterestPaid}
                   totalAmountPaid={totalAmountPaid}
                 />
-                <BasicTable 
+                <BasicTable
                   loanAmountValue={details.loanAmountValue}
                   monthlyRepaymentAmount={monthlyRepaymentAmount}
                   monthlyInterestRate={monthlyInterestRate}
@@ -188,7 +228,6 @@ function Basic() {
 }
 
 export default Basic;
-
 
 // Research refs and React Router/URL Parameters (Parsing/Getting URL Parameters)
 // use onclick event to change react router destination
