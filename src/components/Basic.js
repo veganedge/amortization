@@ -28,18 +28,27 @@ function Basic() {
     termLengthValue: 0,
   };
 
-  // Defining the initial "searchParams" state:
-  const initialSearchParams = {
-    loanAmount: "",
-    annualInterestRate: "",
-    termLength: "",
-  };
-
   // Setting the state property "details" and initial value for it:
   const [details, setDetails] = useState(initialDetails);
 
   // Setting the state property "searchParams" and initial value for it:
-  const [searchParams, setSearchParams] = useSearchParams(initialSearchParams);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Getting the searchParams to use as value of inputs if exist:
+  const loanAmountParam = searchParams.get("loanAmount");
+  const annualInterestRateParam = searchParams.get("annualInterestRate");
+  const termLengthParam = searchParams.get("termLength");
+
+  // Making calculations based on user inputs:
+  const termLengthInMonths = details.termLengthValue * 12.0;
+  const monthlyInterestRate = details.annualInterestRateValue / 100.0 / 12.0;
+  const monthlyRepaymentAmount =
+    (details.loanAmountValue *
+      (monthlyInterestRate *
+        Math.pow(1 + monthlyInterestRate, termLengthInMonths))) /
+    (Math.pow(1 + monthlyInterestRate, termLengthInMonths) - 1);
+  const totalAmountPaid = termLengthInMonths * monthlyRepaymentAmount;
+  const totalInterestPaid = totalAmountPaid - details.loanAmountValue;
 
   // Getting the user input values (Calculate button onClick event):
   const onFormSubmit = (event) => {
@@ -63,26 +72,10 @@ function Basic() {
     setSearchParams(updatedSearchParams);
   };
 
-  // Getting the searchParams to use as value of inputs if exist:
-  const loanAmountParam = searchParams.get("loanAmount");
-  const annualInterestRateParam = searchParams.get("annualInterestRate");
-  const termLengthParam = searchParams.get("termLength");
-
-  // Making calculations based on user inputs:
-  const termLengthInMonths = details.termLengthValue * 12.0;
-  const monthlyInterestRate = details.annualInterestRateValue / 100.0 / 12.0;
-  const monthlyRepaymentAmount =
-    (details.loanAmountValue *
-      (monthlyInterestRate *
-        Math.pow(1 + monthlyInterestRate, termLengthInMonths))) /
-    (Math.pow(1 + monthlyInterestRate, termLengthInMonths) - 1);
-  const totalAmountPaid = termLengthInMonths * monthlyRepaymentAmount;
-  const totalInterestPaid = totalAmountPaid - details.loanAmountValue;
-
   // Resetting form/user input values (Reset button onClick event):
   const resetHandler = () => {
     setDetails(initialDetails);
-    setSearchParams(initialSearchParams);
+    setSearchParams();
   };
 
   return (
