@@ -105,9 +105,7 @@ function Basic() {
                             id="loan_amount"
                             min="1"
                             required
-                            defaultValue={
-                              loanAmountParam ? loanAmountParam : null
-                            }
+                            defaultValue={loanAmountParam}
                           />
                         </InputGroup>
                       </FormGroup>
@@ -130,11 +128,7 @@ function Basic() {
                             max="100"
                             step="0.01"
                             required
-                            defaultValue={
-                              annualInterestRateParam
-                                ? annualInterestRateParam
-                                : null
-                            }
+                            defaultValue={annualInterestRateParam}
                           />
                           <InputGroup.Text>%</InputGroup.Text>
                         </InputGroup>
@@ -159,9 +153,7 @@ function Basic() {
                             // figure this out if we want them to be able to do months as well (like 18 months or something)
                             // step="0.083333333"
                             required
-                            defaultValue={
-                              termLengthParam ? termLengthParam : null
-                            }
+                            defaultValue={termLengthParam}
                           />
                           <InputGroup.Text>Years</InputGroup.Text>
                         </InputGroup>
@@ -196,7 +188,7 @@ function Basic() {
         {/* SHOW RESULTS AND TABLE COMPONENTS IF USER SUBMITTED INPUT VALUES */}
         <Row>
           <Col>
-            {details.showResults ? (
+            {details.showResults && (
               <>
                 <BasicCalculated
                   loanAmountValue={details.loanAmountValue}
@@ -212,7 +204,7 @@ function Basic() {
                   monthlyInterestRate={monthlyInterestRate}
                 />
               </>
-            ) : null}
+            )}
           </Col>
         </Row>
       </Container>
@@ -222,10 +214,7 @@ function Basic() {
 
 export default Basic;
 
-// Research refs and React Router/URL Parameters (Parsing/Getting URL Parameters)
-// use onclick event to change react router destination
-//  - ideally to be able to copy and paste a url link that gives somebody the results of specific numbers already.
-// Changing the URL parameters and not page location - should rerender components, not sit and do nothing. New URL parameters = new values/new calculations.
+//when change URL params, RESET button no longer clears form
 
 //research moment.js for possible dates and table
 
