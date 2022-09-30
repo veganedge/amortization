@@ -1,5 +1,3 @@
-// React Imports
-import { useState } from "react";
 // React Router Imports
 import { useSearchParams } from "react-router-dom";
 // React Bootstrap Imports
@@ -15,23 +13,11 @@ import {
   FormGroup,
   FormLabel,
 } from "react-bootstrap";
-import BasicTable from "./BasicTable";
 // Component Imports
-import BasicCalculated from "./BasicCalculated";
+import ResultsSection from "./ResultsSection";
 
 function Basic() {
-  // Defining the initial "details" state:
-  const initialDetails = {
-    showResults: false,
-    loanAmountValue: 0,
-    annualInterestRateValue: 0,
-    termLengthValue: 0,
-  };
-
-  // Setting the state property "details" and initial value for it:
-  const [details, setDetails] = useState(initialDetails);
-
-  // Setting the state property "searchParams" and initial value for it:
+  // Setting the property "searchParams" and initial value for it:
   const [searchParams, setSearchParams] = useSearchParams();
 
   // Getting the searchParams to use as value of inputs if exist:
@@ -39,44 +25,26 @@ function Basic() {
   const annualInterestRateParam = searchParams.get("annualInterestRate");
   const termLengthParam = searchParams.get("termLength");
 
-  // Making calculations based on user inputs:
-  const termLengthInMonths = details.termLengthValue * 12.0;
-  const monthlyInterestRate = details.annualInterestRateValue / 100.0 / 12.0;
-  const monthlyRepaymentAmount =
-    (details.loanAmountValue *
-      (monthlyInterestRate *
-        Math.pow(1 + monthlyInterestRate, termLengthInMonths))) /
-    (Math.pow(1 + monthlyInterestRate, termLengthInMonths) - 1);
-  const totalAmountPaid = termLengthInMonths * monthlyRepaymentAmount;
-  const totalInterestPaid = totalAmountPaid - details.loanAmountValue;
-
   // Getting the user input values (Calculate button onClick event):
   const onFormSubmit = (event) => {
     event.preventDefault();
-    const updatedDetails = {
-      showResults: true,
-      loanAmountValue: event.target.loan_amount.value,
-      annualInterestRateValue: event.target.annual_interest_rate.value,
-      termLengthValue: event.target.term_length.value,
-    };
+
     const updatedSearchParams = {
       loanAmount: event.target.loan_amount.value,
       annualInterestRate: event.target.annual_interest_rate.value,
       termLength: event.target.term_length.value,
     };
 
-    // Updating the "details" state to the user input values:
-    setDetails(updatedDetails);
-
-    // Updating the "searchParams" state to the user input values:
+    // Updating the "searchParams" to the user input values:
     setSearchParams(updatedSearchParams);
   };
 
   // Resetting form/user input values (Reset button onClick event):
-  const resetHandler = () => {
-    setDetails(initialDetails);
-    setSearchParams();
-  };
+  const resetHandler = () => setSearchParams();
+
+  // Setting showResults to true or false (to conditionally render the ResultsSection component)
+  const showResults =
+    loanAmountParam && annualInterestRateParam && termLengthParam;
 
   return (
     <>
@@ -185,25 +153,15 @@ function Basic() {
           </Col>
         </Row>
 
-        {/* SHOW RESULTS AND TABLE COMPONENTS IF USER SUBMITTED INPUT VALUES */}
+        {/* SHOW RESULTS SECTION IF USER SUBMITTED INPUT VALUES */}
         <Row>
           <Col>
-            {details.showResults && (
-              <>
-                <BasicCalculated
-                  loanAmountValue={details.loanAmountValue}
-                  annualInterestRateValue={details.annualInterestRateValue}
-                  termLengthValue={details.termLengthValue}
-                  monthlyRepaymentAmount={monthlyRepaymentAmount}
-                  totalInterestPaid={totalInterestPaid}
-                  totalAmountPaid={totalAmountPaid}
-                />
-                <BasicTable
-                  loanAmountValue={details.loanAmountValue}
-                  monthlyRepaymentAmount={monthlyRepaymentAmount}
-                  monthlyInterestRate={monthlyInterestRate}
-                />
-              </>
+            {showResults && (
+              <ResultsSection
+                loanAmount={loanAmountParam}
+                annualInterestRate={annualInterestRateParam}
+                termLength={termLengthParam}
+              />
             )}
           </Col>
         </Row>

@@ -1,15 +1,18 @@
 // React Bootstrap Imports
 import { Table, Col, Row, Button } from "react-bootstrap";
 
-
-const BasicTable = ({ loanAmountValue, monthlyRepaymentAmount, monthlyInterestRate }) => {
+const BasicTable = ({
+  loanAmount,
+  monthlyRepaymentAmount,
+  monthlyInterestRate,
+}) => {
   //   ISSUES FOR THIS COMPONENT
   // - create table rows, header for year, cells for month/amount to principal/amount to interest/loan balance based on info from Basic
   // - maybe make table collapsible/expandable by year if possible (check this- https://www.bankrate.com/mortgages/amortization-calculator/ click SCHEDULE tab)
 
-  let amountToInterest = loanAmountValue * monthlyInterestRate;
+  let amountToInterest = loanAmount * monthlyInterestRate;
   let amountToPrincipal = monthlyRepaymentAmount - amountToInterest;
-  let loanBalance = loanAmountValue - monthlyRepaymentAmount;
+  let loanBalance = loanAmount - monthlyRepaymentAmount;
 
   return (
     <>

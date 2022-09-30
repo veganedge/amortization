@@ -1,21 +1,17 @@
 // React Bootstrap Imports
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 
-
 // COPY THIS COMPONENT (BasicCalculated2) and make class component (or maybe through hooks to use lifecycle methods)
 // move state setting functions (and maybe) calculations into the Onmount/Didmount ??
 
-
 function BasicCalculated({
-  loanAmountValue,
-  annualInterestRateValue,
-  termLengthValue,
+  loanAmount,
+  annualInterestRate,
+  termLength,
   monthlyRepaymentAmount,
   totalInterestPaid,
-  totalAmountPaid
+  totalAmountPaid,
 }) {
-  
-  
   return (
     <>
       <Container className="mt-5 mb-5">
@@ -26,16 +22,18 @@ function BasicCalculated({
                 <h4>Loan Details</h4>
               </Card.Header>
               <Card.Body className="text-center">
-                <h6>Loan Amount: ${loanAmountValue}</h6>
-                <h6>Annual Interest Rate: {annualInterestRateValue}%</h6>
-                <h6>Term Length: {termLengthValue} years</h6>
+                <h6>Loan Amount: ${loanAmount}</h6>
+                <h6>Annual Interest Rate: {annualInterestRate}%</h6>
+                <h6>Term Length: {termLength} years</h6>
               </Card.Body>
               <Card.Header className="text-center">
                 <h2>Results</h2>
               </Card.Header>
               <Card.Body className="text-center">
                 <h4 className="mt-3">Monthly Repayment</h4>
-                <h3 className="text-danger">${monthlyRepaymentAmount.toFixed(2)}</h3>
+                <h3 className="text-danger">
+                  ${monthlyRepaymentAmount.toFixed(2)}
+                </h3>
                 <h5 className="mt-3">Interest Paid</h5>
                 <h5 className="text-info">${totalInterestPaid.toFixed(2)}</h5>
                 <h4 className="mt-3 mb-0">Total Paid</h4>
