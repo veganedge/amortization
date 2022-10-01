@@ -9,10 +9,19 @@ const BasicTable = ({
   //   ISSUES FOR THIS COMPONENT
   // - create table rows, header for year, cells for month/amount to principal/amount to interest/loan balance based on info from Basic
   // - maybe make table collapsible/expandable by year if possible (check this- https://www.bankrate.com/mortgages/amortization-calculator/ click SCHEDULE tab)
+  // - research moment.js for possible dates and table
 
   let amountToInterest = loanAmount * monthlyInterestRate;
   let amountToPrincipal = monthlyRepaymentAmount - amountToInterest;
   let loanBalance = loanAmount - monthlyRepaymentAmount;
+
+  // Create number formatter.
+  var formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 
   return (
     <>
@@ -38,7 +47,7 @@ const BasicTable = ({
               <tr>
                 <th colSpan={4}>
                   <div className="d-grid gap-2">
-                    <Button type="button" variant="dark" size="sm">
+                    <Button type="button" variant="dark" size="sm" disabled>
                       2022
                     </Button>
                   </div>
@@ -46,9 +55,9 @@ const BasicTable = ({
               </tr>
               <tr>
                 <td>July</td>
-                <td>${amountToPrincipal.toFixed(2)}</td>
-                <td>${amountToInterest.toFixed(2)}</td>
-                <td>${loanBalance.toFixed(2)}</td>
+                <td>{formatter.format(amountToPrincipal)}</td>
+                <td>{formatter.format(amountToInterest)}</td>
+                <td>{formatter.format(loanBalance)}</td>
               </tr>
               <tr>
                 <td>August</td>
@@ -83,7 +92,7 @@ const BasicTable = ({
               <tr>
                 <th colSpan={4}>
                   <div className="d-grid gap-2">
-                    <Button type="button" variant="dark" size="sm">
+                    <Button type="button" variant="dark" size="sm" disabled>
                       2023
                     </Button>
                   </div>

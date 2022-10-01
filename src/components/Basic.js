@@ -17,8 +17,17 @@ import {
 import ResultsSection from "./ResultsSection";
 
 function Basic() {
+  //   ISSUES FOR THIS COMPONENT
+  // - RESET button no longer clears form
+
   // Setting the property "searchParams" and initial value for it:
   const [searchParams, setSearchParams] = useSearchParams();
+
+  // Resetting form/user input values (Reset button onClick event):
+  const resetHandler = () => {
+    setSearchParams();
+    //removeFooterClass();
+  };
 
   // Getting the searchParams to use as value of inputs if exist:
   const loanAmountParam = searchParams.get("loanAmount");
@@ -38,9 +47,6 @@ function Basic() {
     // Updating the "searchParams" to the user input values:
     setSearchParams(updatedSearchParams);
   };
-
-  // Resetting form/user input values (Reset button onClick event):
-  const resetHandler = () => setSearchParams();
 
   // Setting showResults to true or false (to conditionally render the ResultsSection component)
   const showResults =
@@ -73,7 +79,7 @@ function Basic() {
                             id="loan_amount"
                             min="1"
                             required
-                            defaultValue={loanAmountParam}
+                            defaultValue={loanAmountParam ? loanAmountParam : 0}
                           />
                         </InputGroup>
                       </FormGroup>
@@ -96,7 +102,11 @@ function Basic() {
                             max="100"
                             step="0.01"
                             required
-                            defaultValue={annualInterestRateParam}
+                            defaultValue={
+                              annualInterestRateParam
+                                ? annualInterestRateParam
+                                : 0
+                            }
                           />
                           <InputGroup.Text>%</InputGroup.Text>
                         </InputGroup>
@@ -121,7 +131,7 @@ function Basic() {
                             // figure this out if we want them to be able to do months as well (like 18 months or something)
                             // step="0.083333333"
                             required
-                            defaultValue={termLengthParam}
+                            defaultValue={termLengthParam ? termLengthParam : 0}
                           />
                           <InputGroup.Text>Years</InputGroup.Text>
                         </InputGroup>
@@ -171,9 +181,3 @@ function Basic() {
 }
 
 export default Basic;
-
-//when change URL params, RESET button no longer clears form
-
-//research moment.js for possible dates and table
-
-//look for library that automatically adds the number formatting - JS number formatting library (add commas in proper spaces.)
