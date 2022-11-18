@@ -1,6 +1,6 @@
 function FooterNavigation() {
   return (
-    <footer className="text-center text-lg-start bg-white text-muted mt-3">
+    <footer className="text-center text-lg-start bg-white text-muted mt-3 fixed-bottom">
       <div
         className="text-center p-4"
         style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}

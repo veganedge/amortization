@@ -19,6 +19,6 @@ root.render(
     <Router>
       <Main />
     </Router>
-    <FooterNavigation />
+    {/*<FooterNavigation />*/}
   </React.StrictMode>
 );

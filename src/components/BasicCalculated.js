@@ -9,8 +9,8 @@ function BasicCalculated({
   totalInterestPaid,
   totalAmountPaid,
 }) {
-  // Create number formatter.
-  var formatter = new Intl.NumberFormat("en-US", {
+  // Create currency number formatter.
+  let formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
     minimumFractionDigits: 2,
@@ -28,8 +28,14 @@ function BasicCalculated({
               </Card.Header>
               <Card.Body className="text-center">
                 <h6>Loan Amount: {formatter.format(loanAmount)}</h6>
-                <h6>Annual Interest Rate: {annualInterestRate}%</h6>
-                <h6>Term Length: {termLength} years</h6>
+                <h6>
+                  Annual Interest Rate:{" "}
+                  {new Intl.NumberFormat().format(annualInterestRate)}%
+                </h6>
+                <h6>
+                  Term Length: {new Intl.NumberFormat().format(termLength)}{" "}
+                  years
+                </h6>
               </Card.Body>
               <Card.Header className="text-center">
                 <h2>Results</h2>

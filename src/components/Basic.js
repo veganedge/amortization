@@ -17,16 +17,12 @@ import {
 import ResultsSection from "./ResultsSection";
 
 function Basic() {
-  //   ISSUES FOR THIS COMPONENT
-  // - RESET button no longer clears form
-
   // Setting the property "searchParams" and initial value for it:
   const [searchParams, setSearchParams] = useSearchParams();
 
   // Resetting form/user input values (Reset button onClick event):
   const resetHandler = () => {
     setSearchParams();
-    //removeFooterClass();
   };
 
   // Getting the searchParams to use as value of inputs if exist:
@@ -37,13 +33,11 @@ function Basic() {
   // Getting the user input values (Calculate button onClick event):
   const onFormSubmit = (event) => {
     event.preventDefault();
-
     const updatedSearchParams = {
       loanAmount: event.target.loan_amount.value,
       annualInterestRate: event.target.annual_interest_rate.value,
       termLength: event.target.term_length.value,
     };
-
     // Updating the "searchParams" to the user input values:
     setSearchParams(updatedSearchParams);
   };

@@ -45,3 +45,7 @@ a {
 .footer-brand {
   margin-left: 1em;
 }
+
+.bold {
+  font-weight: bold;
+}
