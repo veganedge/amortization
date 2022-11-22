@@ -1,7 +1,9 @@
 // React Bootstrap Imports
 import { Table, Col, Row, Button } from "react-bootstrap";
+// DayJS Imports
+import * as dayjs from 'dayjs';
 
-const BasicTable2 = ({
+const BasicTable = ({
   loanAmount,
   monthlyRepaymentAmount,
   monthlyInterestRate,
@@ -25,7 +27,7 @@ const BasicTable2 = ({
             size="sm"
             className="border-dark text-center"
           >
-            {/* Dynamic table headings */}
+            {/* Dynamic TABLE HEADINGS */}
             <thead>
               <tr>
                 {tableColumnHeadings.map((item) => (
@@ -34,7 +36,7 @@ const BasicTable2 = ({
               </tr>
             </thead>
 
-            {/* Dynamic table body based on info from Basic.js */}
+            {/* Dynamic TABLE BODY based on info from BASIC.JS */}
             <tbody>
               <TableBody
                 loanAmount={loanAmount}
@@ -49,8 +51,10 @@ const BasicTable2 = ({
   );
 };
 
+// TableHead Component
 const TableHead = ({ item }) => <th>{item.heading}</th>;
 
+// TableBody Component
 const TableBody = ({
   loanAmount,
   monthlyRepaymentAmount,
@@ -64,26 +68,13 @@ const TableBody = ({
     maximumFractionDigits: 2,
   });
 
-  // Array of months
-  let months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
   let rows = [];
   let remainingBalance = loanAmount;
+  let counter = 1;
+  let date = dayjs().add(1, "M").format("MMM YYYY");
 
   while (remainingBalance > monthlyRepaymentAmount) {
+
     // Calculations for table
     let amountToInterest = (remainingBalance * monthlyInterestRate).toFixed(2);
     let amountToPrincipal = (monthlyRepaymentAmount - amountToInterest).toFixed(2);
@@ -91,24 +82,29 @@ const TableBody = ({
 
     // Making rows of table
     rows.push(
-      <tr>
-        <th>Month</th>
+      <tr key={counter}>
+        <td className="fw-bold">{date}</td>
         <td>{formatter.format(amountToPrincipal)}</td>
         <td>{formatter.format(amountToInterest)}</td>
-        <td>{formatter.format(remainingBalance)}</td>
+        <td className="fw-bold">{formatter.format(remainingBalance)}</td>
       </tr>
     );
+
+    counter += 1;
+    date = dayjs(date).add(1, "M").format("MMM YYYY");
   }
 
-  // Making last row of table if remainingBalance <= monthlyRepaymentAmount
-  rows.push(<tr>
-    <th>Month</th>
-    <td>{formatter.format(remainingBalance)}</td>
-    <td>{formatter.format(0)}</td>
-    <td>{formatter.format(0)}</td>
-  </tr>)
+  // Making last row of table if remainingBalance <= monthlyRepaymentAmount (Final payment)
+  rows.push(
+    <tr key={counter}>
+      <td className="fw-bold">{date}</td>
+      <td>{formatter.format(remainingBalance)}</td>
+      <td>{formatter.format(0)}</td>
+      <td className="fw-bold">{formatter.format(0)}</td>
+    </tr>)
 
   return rows;
+
 };
 
-export default BasicTable2;
+export default BasicTable;

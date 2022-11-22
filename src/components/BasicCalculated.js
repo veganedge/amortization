@@ -45,11 +45,11 @@ function BasicCalculated({
                 <h3 className="text-danger">
                   {formatter.format(monthlyRepaymentAmount)}
                 </h3>
-                <h5 className="mt-3">Interest Paid</h5>
+                <h5 className="mt-3">Total Interest Paid</h5>
                 <h5 className="text-info">
                   {formatter.format(totalInterestPaid)}
                 </h5>
-                <h4 className="mt-3 mb-0">Total Paid</h4>
+                <h4 className="mt-3 mb-0">Total Cost</h4>
                 <h6 className="text-muted">principal + interest</h6>
                 <h3 className="text-success">
                   {formatter.format(totalAmountPaid)}
