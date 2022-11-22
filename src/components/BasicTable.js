@@ -1,27 +1,18 @@
 // React Bootstrap Imports
 import { Table, Col, Row, Button } from "react-bootstrap";
 
-const BasicTable = ({
+const BasicTable2 = ({
   loanAmount,
   monthlyRepaymentAmount,
   monthlyInterestRate,
 }) => {
-  //   ISSUES FOR THIS COMPONENT
-  // - create table rows, header for year, cells for month/amount to principal/amount to interest/loan balance based on info from Basic
-  // - maybe make table collapsible/expandable by year if possible (check this- https://www.bankrate.com/mortgages/amortization-calculator/ click SCHEDULE tab)
-  // - research moment.js for possible dates and table
-
-  let amountToInterest = loanAmount * monthlyInterestRate;
-  let amountToPrincipal = monthlyRepaymentAmount - amountToInterest;
-  let loanBalance = loanAmount - monthlyRepaymentAmount;
-
-  // Create number formatter.
-  var formatter = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
+  // Dynamic table headings
+  const tableColumnHeadings = [
+    { id: "1", heading: "Month" },
+    { id: "2", heading: "Amount to Principal" },
+    { id: "3", heading: "Amount to Interest" },
+    { id: "4", heading: "Outstanding Loan Balance" },
+  ];
 
   return (
     <>
@@ -34,88 +25,22 @@ const BasicTable = ({
             size="sm"
             className="border-dark text-center"
           >
+            {/* Dynamic table headings */}
             <thead>
               <tr>
-                <th>Month</th>
-                <th>Principal</th>
-                <th>Interest</th>
-                <th>Remaining Loan Balance</th>
+                {tableColumnHeadings.map((item) => (
+                  <TableHead item={item} key={item.id} />
+                ))}
               </tr>
             </thead>
-            {/* create body based on info from Basic.js */}
+
+            {/* Dynamic table body based on info from Basic.js */}
             <tbody>
-              <tr>
-                <th colSpan={4}>
-                  <div className="d-grid gap-2">
-                    <Button type="button" variant="dark" size="sm" disabled>
-                      2022
-                    </Button>
-                  </div>
-                </th>
-              </tr>
-              <tr>
-                <td>July</td>
-                <td>{formatter.format(amountToPrincipal)}</td>
-                <td>{formatter.format(amountToInterest)}</td>
-                <td>{formatter.format(loanBalance)}</td>
-              </tr>
-              <tr>
-                <td>August</td>
-                <td>$AmountToPrincipal</td>
-                <td>$AmountToInterest</td>
-                <td>$LoanBalance - ($AmountToPrincipal + $AmountToInterest)</td>
-              </tr>
-              <tr>
-                <td>September</td>
-                <td>$AmountToPrincipal</td>
-                <td>$AmountToInterest</td>
-                <td>$LoanBalance - ($AmountToPrincipal + $AmountToInterest)</td>
-              </tr>
-              <tr>
-                <td>October</td>
-                <td>$AmountToPrincipal</td>
-                <td>$AmountToInterest</td>
-                <td>$LoanBalance - ($AmountToPrincipal + $AmountToInterest)</td>
-              </tr>
-              <tr>
-                <td>November</td>
-                <td>$AmountToPrincipal</td>
-                <td>$AmountToInterest</td>
-                <td>$LoanBalance - ($AmountToPrincipal + $AmountToInterest)</td>
-              </tr>
-              <tr>
-                <td>December</td>
-                <td>$AmountToPrincipal</td>
-                <td>$AmountToInterest</td>
-                <td>$LoanBalance - ($AmountToPrincipal + $AmountToInterest)</td>
-              </tr>
-              <tr>
-                <th colSpan={4}>
-                  <div className="d-grid gap-2">
-                    <Button type="button" variant="dark" size="sm" disabled>
-                      2023
-                    </Button>
-                  </div>
-                </th>
-              </tr>
-              <tr>
-                <td>January</td>
-                <td>$AmountToPrincipal</td>
-                <td>$AmountToInterest</td>
-                <td>$LoanBalance - ($AmountToPrincipal + $AmountToInterest)</td>
-              </tr>
-              <tr>
-                <td>February</td>
-                <td>$AmountToPrincipal</td>
-                <td>$AmountToInterest</td>
-                <td>$LoanBalance - ($AmountToPrincipal + $AmountToInterest)</td>
-              </tr>
-              <tr>
-                <td>March</td>
-                <td>$AmountToPrincipal</td>
-                <td>$AmountToInterest</td>
-                <td>$LoanBalance - ($AmountToPrincipal + $AmountToInterest)</td>
-              </tr>
+              <TableBody
+                loanAmount={loanAmount}
+                monthlyRepaymentAmount={monthlyRepaymentAmount}
+                monthlyInterestRate={monthlyInterestRate}
+              />
             </tbody>
           </Table>
         </Col>
@@ -124,4 +49,66 @@ const BasicTable = ({
   );
 };
 
-export default BasicTable;
+const TableHead = ({ item }) => <th>{item.heading}</th>;
+
+const TableBody = ({
+  loanAmount,
+  monthlyRepaymentAmount,
+  monthlyInterestRate,
+}) => {
+  // Create number formatter
+  let formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+  // Array of months
+  let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  let rows = [];
+  let remainingBalance = loanAmount;
+
+  while (remainingBalance > monthlyRepaymentAmount) {
+    // Calculations for table
+    let amountToInterest = (remainingBalance * monthlyInterestRate).toFixed(2);
+    let amountToPrincipal = (monthlyRepaymentAmount - amountToInterest).toFixed(2);
+    remainingBalance = (remainingBalance - amountToPrincipal).toFixed(2);
+
+    // Making rows of table
+    rows.push(
+      <tr>
+        <th>Month</th>
+        <td>{formatter.format(amountToPrincipal)}</td>
+        <td>{formatter.format(amountToInterest)}</td>
+        <td>{formatter.format(remainingBalance)}</td>
+      </tr>
+    );
+  }
+
+  // Making last row of table if remainingBalance <= monthlyRepaymentAmount
+  rows.push(<tr>
+    <th>Month</th>
+    <td>{formatter.format(remainingBalance)}</td>
+    <td>{formatter.format(0)}</td>
+    <td>{formatter.format(0)}</td>
+  </tr>)
+
+  return rows;
+};
+
+export default BasicTable2;
