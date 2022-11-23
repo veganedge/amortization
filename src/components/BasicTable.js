@@ -68,41 +68,74 @@ const TableBody = ({
     maximumFractionDigits: 2,
   });
 
+  // Initializing variables for table
   let rows = [];
   let remainingBalance = loanAmount;
-  let counter = 1;
+  let rowsKey = 1;
   let date = dayjs().add(1, "M").format("MMM YYYY");
+  let janCheck = false;
 
+
+  // Making rows of table
   while (remainingBalance > monthlyRepaymentAmount) {
 
-    // Calculations for table
-    let amountToInterest = (remainingBalance * monthlyInterestRate).toFixed(2);
-    let amountToPrincipal = (monthlyRepaymentAmount - amountToInterest).toFixed(2);
-    remainingBalance = (remainingBalance - amountToPrincipal).toFixed(2);
+    // Making YEAR row without calculations
+    if (dayjs(date).format("MMM YYYY").includes("Jan") && janCheck) {
 
-    // Making rows of table
-    rows.push(
-      <tr key={counter}>
-        <td className="fw-bold">{date}</td>
-        <td>{formatter.format(amountToPrincipal)}</td>
-        <td>{formatter.format(amountToInterest)}</td>
-        <td className="fw-bold">{formatter.format(remainingBalance)}</td>
-      </tr>
-    );
+      rows.push(
+        <td key={rowsKey} colSpan="4">
+          <div className="d-grid gap-2">
+            <Button variant="dark" className="table-button fw-bold" size="sm">
+              {dayjs(date).format("YYYY")}
+            </Button>
+          </div>
+        </td>
+      );
+      janCheck = false;
 
-    counter += 1;
-    date = dayjs(date).add(1, "M").format("MMM YYYY");
+    } else {
+
+      // Calculations needed for non-year rows of table
+      let amountToInterest = (remainingBalance * monthlyInterestRate).toFixed(2);
+      let amountToPrincipal = (monthlyRepaymentAmount - amountToInterest).toFixed(2);
+      remainingBalance = (remainingBalance - amountToPrincipal).toFixed(2);
+
+      // Making non-year rows of table
+      rows.push(
+        <tr key={rowsKey}>
+          <td className="fw-bold">{date}</td>
+          <td>{formatter.format(amountToPrincipal)}</td>
+          <td>{formatter.format(amountToInterest)}</td>
+          <td className="fw-bold">{formatter.format(remainingBalance)}</td>
+        </tr>
+      );
+
+      // Increasing month
+      date = dayjs(date).add(1, "M").format("MMM YYYY");
+
+      // If month now = Jan, change janCheck variable to true. 
+      // Next time through loop, it will pass the if condition to make a YEAR row.
+      if (dayjs(date).format("MMM YYYY").includes("Jan")) {
+        janCheck = true;
+      }
+    
+    }
+
+    // Increase key used on rows array elements, so unique for React
+    rowsKey += 1;
   }
+
 
   // Making last row of table if remainingBalance <= monthlyRepaymentAmount (Final payment)
   rows.push(
-    <tr key={counter}>
+    <tr key={rowsKey}>
       <td className="fw-bold">{date}</td>
       <td>{formatter.format(remainingBalance)}</td>
       <td>{formatter.format(0)}</td>
       <td className="fw-bold">{formatter.format(0)}</td>
     </tr>)
 
+  // Render/display the rows of table
   return rows;
 
 };
