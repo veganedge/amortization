@@ -1,7 +1,7 @@
 // React Bootstrap Imports
 import { Table, Col, Row, Button } from "react-bootstrap";
 // DayJS Imports
-import * as dayjs from 'dayjs';
+import * as dayjs from "dayjs";
 
 const BasicTable = ({
   loanAmount,
@@ -60,6 +60,7 @@ const TableBody = ({
   monthlyRepaymentAmount,
   monthlyInterestRate,
 }) => {
+
   // Create number formatter
   let formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -72,21 +73,19 @@ const TableBody = ({
   let rows = [];
   let remainingBalance = loanAmount;
   let rowsKey = 1;
-  let date = dayjs().add(1, "M").format("MMM YYYY");
+  let date = dayjs().add(1, "M");
   let janCheck = false;
-
 
   // Making rows of table
   while (remainingBalance > monthlyRepaymentAmount) {
 
     // Making YEAR row without calculations
-    if (dayjs(date).format("MMM YYYY").includes("Jan") && janCheck) {
-
+    if (date.get("M") === 0 && janCheck) {
       rows.push(
         <td key={rowsKey} colSpan="4">
           <div className="d-grid gap-2">
             <Button variant="dark" className="table-button fw-bold" size="sm">
-              {dayjs(date).format("YYYY")}
+              {date.format("YYYY")}
             </Button>
           </div>
         </td>
@@ -103,7 +102,7 @@ const TableBody = ({
       // Making non-year rows of table
       rows.push(
         <tr key={rowsKey}>
-          <td className="fw-bold">{date}</td>
+          <td className="fw-bold">{date.format("MMM")}</td>
           <td>{formatter.format(amountToPrincipal)}</td>
           <td>{formatter.format(amountToInterest)}</td>
           <td className="fw-bold">{formatter.format(remainingBalance)}</td>
@@ -111,33 +110,31 @@ const TableBody = ({
       );
 
       // Increasing month
-      date = dayjs(date).add(1, "M").format("MMM YYYY");
+      date = date.add(1, "M");
 
-      // If month now = Jan, change janCheck variable to true. 
+      // If month = Jan, change janCheck variable to true.
       // Next time through loop, it will pass the if condition to make a YEAR row.
-      if (dayjs(date).format("MMM YYYY").includes("Jan")) {
+      if (date.get("M") === 0) {
         janCheck = true;
       }
-    
     }
 
     // Increase key used on rows array elements, so unique for React
     rowsKey += 1;
   }
 
-
   // Making last row of table if remainingBalance <= monthlyRepaymentAmount (Final payment)
   rows.push(
     <tr key={rowsKey}>
-      <td className="fw-bold">{date}</td>
+      <td className="fw-bold">{date.format("MMM")}</td>
       <td>{formatter.format(remainingBalance)}</td>
       <td>{formatter.format(0)}</td>
       <td className="fw-bold">{formatter.format(0)}</td>
-    </tr>)
+    </tr>
+  );
 
   // Render/display the rows of table
   return rows;
-
 };
 
 export default BasicTable;
