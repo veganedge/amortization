@@ -9,8 +9,9 @@ function BasicCalculated({
   totalInterestPaid,
   totalAmountPaid,
 }) {
+
   // Create currency number formatter.
-  let formatter = new Intl.NumberFormat("en-US", {
+  let currencyFormatter = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
     minimumFractionDigits: 2,
@@ -27,7 +28,7 @@ function BasicCalculated({
                 <h4>Loan Details</h4>
               </Card.Header>
               <Card.Body className="text-center">
-                <h6>Loan Amount: {formatter.format(loanAmount)}</h6>
+                <h6>Loan Amount: {currencyFormatter.format(loanAmount)}</h6>
                 <h6>
                   Annual Interest Rate:{" "}
                   {new Intl.NumberFormat().format(annualInterestRate)}%
@@ -43,16 +44,16 @@ function BasicCalculated({
               <Card.Body className="text-center">
                 <h4 className="mt-3">Monthly Repayment</h4>
                 <h3 className="text-danger">
-                  {formatter.format(monthlyRepaymentAmount)}
+                  {currencyFormatter.format(monthlyRepaymentAmount)}
                 </h3>
                 <h5 className="mt-3">Total Interest Paid</h5>
                 <h5 className="text-info">
-                  {formatter.format(totalInterestPaid)}
+                  {currencyFormatter.format(totalInterestPaid)}
                 </h5>
                 <h4 className="mt-3 mb-0">Total Cost</h4>
                 <h6 className="text-muted">principal + interest</h6>
                 <h3 className="text-success">
-                  {formatter.format(totalAmountPaid)}
+                  {currencyFormatter.format(totalAmountPaid)}
                 </h3>
 
                 {/* DOES NOTHING YET */}

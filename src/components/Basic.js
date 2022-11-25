@@ -122,8 +122,6 @@ function Basic() {
                             name="term_length"
                             placeholder="# of"
                             min="1"
-                            // figure this out if we want them to be able to do months as well (like 18 months or something)
-                            // step="0.083333333"
                             required
                             defaultValue={termLengthParam ? termLengthParam : 0}
                           />
