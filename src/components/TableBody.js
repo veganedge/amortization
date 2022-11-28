@@ -23,20 +23,40 @@ const TableBody = ({
   let rowsKey = 1;
   let date = dayjs().add(1, "M");
 
+  // Making FIRST ROW of table (button of this year)
+  rows.push(
+    <tr key={rowsKey}>
+      <td colSpan="4">
+        <div className="d-grid gap-2">
+          <Button variant="dark" className="table-button fw-bold" size="sm">
+            {date.format("YYYY")}
+          </Button>
+        </div>
+      </td>
+    </tr>
+  );
+
+  // Increase key used on rows array elements, so unique for React
+  rowsKey += 1;
+
   // Making rows of table
   while (remainingBalance > monthlyRepaymentAmount) {
 
     // Making YEAR row without calculations
     if (date.get("M") === 0) {
       rows.push(
-        <td key={rowsKey} colSpan="4">
-          <div className="d-grid gap-2">
-            <Button variant="dark" className="table-button fw-bold" size="sm">
-              {date.format("YYYY")}
-            </Button>
-          </div>
-        </td>
+        <tr key={rowsKey}>
+          <td colSpan="4">
+            <div className="d-grid gap-2">
+              <Button variant="dark" className="table-button fw-bold" size="sm">
+                {date.format("YYYY")}
+              </Button>
+            </div>
+          </td>
+        </tr>
       );
+      // Increase key used on rows array elements, so unique for React
+      rowsKey += 1;
     }
 
     // Calculations needed for non-year rows of table
@@ -44,7 +64,7 @@ const TableBody = ({
     let amountToPrincipal = (monthlyRepaymentAmount - amountToInterest).toFixed(2);
     remainingBalance = (remainingBalance - amountToPrincipal).toFixed(2);
 
-    // Making non-year rows of table
+    // Making NON-YEAR rows of table
     rows.push(
       <tr key={rowsKey}>
         <td className="fw-bold">{date.format("MMM")}</td>
@@ -61,7 +81,7 @@ const TableBody = ({
     rowsKey += 1;
   }
 
-  // Making last row of table if remainingBalance <= monthlyRepaymentAmount (Final payment)
+  // Making LAST ROW of table if remainingBalance <= monthlyRepaymentAmount (Final payment)
   rows.push(
     <tr key={rowsKey}>
       <td className="fw-bold">{date.format("MMM")}</td>
