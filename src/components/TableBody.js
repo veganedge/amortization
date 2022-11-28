@@ -8,7 +8,6 @@ const TableBody = ({
   monthlyRepaymentAmount,
   monthlyInterestRate,
 }) => {
-
   // Create currency formatter
   let currencyFormatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -21,29 +20,14 @@ const TableBody = ({
   let rows = [];
   let remainingBalance = loanAmount;
   let rowsKey = 1;
-  let date = dayjs().add(1, "M");
-
-  // Making FIRST ROW of table (button of this year)
-  rows.push(
-    <tr key={rowsKey}>
-      <td colSpan="4">
-        <div className="d-grid gap-2">
-          <Button variant="dark" className="table-button fw-bold" size="sm">
-            {date.format("YYYY")}
-          </Button>
-        </div>
-      </td>
-    </tr>
-  );
-
-  // Increase key used on rows array elements, so unique for React
-  rowsKey += 1;
+  let date = dayjs().add(1, "M"); // adding 1 month so payment will be due month after loan is made
 
   // Making rows of table
   while (remainingBalance > monthlyRepaymentAmount) {
-
     // Making YEAR row without calculations
-    if (date.get("M") === 0) {
+    if (date.get("M") === 0 || rows.length === 0) {
+      // date.get("M") === 0 is if month is JAN
+      // rows.length === 0 is the very first row it will make
       rows.push(
         <tr key={rowsKey}>
           <td colSpan="4">
@@ -70,7 +54,9 @@ const TableBody = ({
         <td className="fw-bold">{date.format("MMM")}</td>
         <td>{currencyFormatter.format(amountToPrincipal)}</td>
         <td>{currencyFormatter.format(amountToInterest)}</td>
-        <td className="fw-bold">{currencyFormatter.format(remainingBalance)}</td>
+        <td className="fw-bold">
+          {currencyFormatter.format(remainingBalance)}
+        </td>
       </tr>
     );
 
