@@ -8,11 +8,10 @@ const BasicTable = ({
   monthlyRepaymentAmount,
   monthlyInterestRate,
 }) => {
-
   return (
     <>
       <Row className="justify-content-center">
-        <Col lg={10}>
+        <Col lg={7}>
           <Table
             striped
             bordered
@@ -20,7 +19,6 @@ const BasicTable = ({
             size="sm"
             className="border-dark text-center"
           >
-
             {/* TABLE HEADINGS */}
             <thead>
               <tr>
@@ -39,7 +37,6 @@ const BasicTable = ({
                 monthlyInterestRate={monthlyInterestRate}
               />
             </tbody>
-            
           </Table>
         </Col>
       </Row>
