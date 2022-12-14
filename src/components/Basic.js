@@ -71,6 +71,10 @@ function Basic() {
                             aria-label="Amount (whole numbers only)"
                             type="number"
                             id="loan_amount"
+                            onKeyDown={(e) =>
+                              ["e", "E", "+", "-", "."].includes(e.key) &&
+                              e.preventDefault()
+                            }
                             min="1"
                             required
                             defaultValue={loanAmountParam ? loanAmountParam : 0}
@@ -92,6 +96,10 @@ function Basic() {
                             aria-label="Annual Interest Rate (to two decimal places)"
                             type="number"
                             id="annual_interest_rate"
+                            onKeyDown={(e) =>
+                              ["e", "E", "+", "-"].includes(e.key) &&
+                              e.preventDefault()
+                            }
                             min="0.01"
                             max="100"
                             step="0.01"
@@ -120,6 +128,10 @@ function Basic() {
                             type="number"
                             id="term_length"
                             name="term_length"
+                            onKeyDown={(e) =>
+                              ["e", "E", "+", "-", "."].includes(e.key) &&
+                              e.preventDefault()
+                            }
                             placeholder="# of"
                             min="1"
                             required

@@ -22,7 +22,7 @@ const TableBody = ({
   let rowsKey = 1;
   let date = dayjs().add(1, "M"); // adding 1 month so payment will be due month after loan is made
 
-  // Making rows of table
+  // Making rows of table (except last row)
   while (remainingBalance > monthlyRepaymentAmount) {
     // Making YEAR row without calculations
     if (date.get("M") === 0 || rows.length === 0) {
