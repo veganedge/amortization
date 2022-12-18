@@ -15,6 +15,7 @@ import {
 } from "react-bootstrap";
 // Component Imports
 import ResultsSection from "./ResultsSection";
+import Footer from "./Footer";
 
 function Basic() {
   // Setting the property "searchParams" and initial value for it:
@@ -180,6 +181,8 @@ function Basic() {
           </Col>
         </Row>
       </Container>
+
+      {showResults ? <Footer /> : <Footer addClass="fixed-bottom" />}
     </>
   );
 }
