@@ -21,6 +21,9 @@ function BasicCalculated({
     maximumFractionDigits: 2,
   });
 
+  // Create formatted variables to display in LOAN DETAILS SECTION
+  let formattedLoanDate = dayjs(loanDate).format("MMM YYYY");
+  let formattedPayoffDate = dayjs(loanDate, "YYYY-MM").add(termLength * 12, "M").format("MMM YYYY");
 
   return (
     <>
@@ -36,7 +39,7 @@ function BasicCalculated({
                 <h3>Loan Details</h3>
               </Card.Header>
               <Card.Body className="text-center">
-                <h6>Loan Date: {dayjs(loanDate).format("MMM YYYY")}</h6>
+                <h6>Loan Date: {formattedLoanDate}</h6>
                 <h6>Loan Amount: {currencyFormatter.format(loanAmount)}</h6>
                 <h6>
                   Annual Interest Rate:{" "}
@@ -46,6 +49,7 @@ function BasicCalculated({
                   Term Length: {new Intl.NumberFormat().format(termLength)}{" "}
                   years
                 </h6>
+                <h6>Payoff Date: {formattedPayoffDate}</h6>
               </Card.Body>
 
               {/* RESULTS SECTION */}
@@ -62,7 +66,6 @@ function BasicCalculated({
                   {currencyFormatter.format(totalInterestPaid)}
                 </h5>
                 <h4 className="mt-3">Total Cost Of Loan</h4>
-                {/* <h6 className="text-muted">{"(principal + interest)"}</h6> */}
                 <h5 className="mb-4">
                   {currencyFormatter.format(totalAmountPaid)}
                 </h5>
