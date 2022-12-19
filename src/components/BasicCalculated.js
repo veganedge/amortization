@@ -1,7 +1,10 @@
 // React Bootstrap Imports
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
+// DayJS Imports
+import * as dayjs from "dayjs";
 
 function BasicCalculated({
+  loanDate,
   loanAmount,
   annualInterestRate,
   termLength,
@@ -18,6 +21,7 @@ function BasicCalculated({
     maximumFractionDigits: 2,
   });
 
+
   return (
     <>
       <Container className="mt-5 mb-5">
@@ -32,6 +36,7 @@ function BasicCalculated({
                 <h3>Loan Details</h3>
               </Card.Header>
               <Card.Body className="text-center">
+                <h6>Loan Date: {dayjs(loanDate).format("MMM YYYY")}</h6>
                 <h6>Loan Amount: {currencyFormatter.format(loanAmount)}</h6>
                 <h6>
                   Annual Interest Rate:{" "}
@@ -49,18 +54,18 @@ function BasicCalculated({
               </Card.Header>
               <Card.Body className="text-center">
                 <h4 className="mt-3">Monthly Repayment</h4>
-                <h3 className="text-danger">
+                <h5 className="text-danger">
                   {currencyFormatter.format(monthlyRepaymentAmount)}
-                </h3>
+                </h5>
                 <h4 className="mt-3">Total Interest Paid</h4>
-                <h5 className="text-info">
+                <h5>
                   {currencyFormatter.format(totalInterestPaid)}
                 </h5>
-                <h4 className="mt-3 mb-0">Total Cost</h4>
-                <h6 className="text-muted">principal + interest</h6>
-                <h3 className="text-success">
+                <h4 className="mt-3">Total Cost Of Loan</h4>
+                {/* <h6 className="text-muted">{"(principal + interest)"}</h6> */}
+                <h5 className="mb-4">
                   {currencyFormatter.format(totalAmountPaid)}
-                </h3>
+                </h5>
 
                 {/* DOES NOTHING YET */}
                 <Button type="button" variant="secondary">

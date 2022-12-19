@@ -2,7 +2,7 @@
 import BasicCalculated from "./BasicCalculated";
 import BasicTable from "./BasicTable";
 
-const ResultsSection = ({ loanAmount, annualInterestRate, termLength }) => {
+const ResultsSection = ({ loanDate, loanAmount, annualInterestRate, termLength }) => {
 
   // Making calculations based on user inputs:
   const termLengthInMonths = termLength * 12.0;
@@ -18,6 +18,7 @@ const ResultsSection = ({ loanAmount, annualInterestRate, termLength }) => {
   return (
     <>
       <BasicCalculated
+        loanDate={loanDate}
         loanAmount={loanAmount}
         annualInterestRate={annualInterestRate}
         termLength={termLength}
@@ -26,6 +27,7 @@ const ResultsSection = ({ loanAmount, annualInterestRate, termLength }) => {
         totalAmountPaid={totalAmountPaid}
       />
       <BasicTable
+        loanDate={loanDate}
         loanAmount={loanAmount}
         monthlyRepaymentAmount={monthlyRepaymentAmount}
         monthlyInterestRate={monthlyInterestRate}

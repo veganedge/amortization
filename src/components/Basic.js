@@ -17,9 +17,7 @@ import {
 import ResultsSection from "./ResultsSection";
 import Footer from "./Footer";
 
-
 function Basic() {
-
   // Setting the property "searchParams" and initial value for it:
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -32,22 +30,28 @@ function Basic() {
   const loanAmountParam = searchParams.get("loanAmount");
   const annualInterestRateParam = searchParams.get("annualInterestRate");
   const termLengthParam = searchParams.get("termLength");
+  const loanDateParam = searchParams.get("loanDate");
 
   // Getting the user input values (Calculate button onClick event):
   const onFormSubmit = (event) => {
     event.preventDefault();
     const updatedSearchParams = {
+      loanDate: event.target.loan_date.value, // loan_date.value is a string of YYYY-MM
       loanAmount: event.target.loan_amount.value,
       annualInterestRate: event.target.annual_interest_rate.value,
       termLength: event.target.term_length.value,
     };
+
     // Updating the "searchParams" to the user input values:
     setSearchParams(updatedSearchParams);
   };
 
   // Setting showResults to true or false (to conditionally render the ResultsSection component)
   const showResults =
-    loanAmountParam && annualInterestRateParam && termLengthParam;
+    loanDateParam &&
+    loanAmountParam &&
+    annualInterestRateParam &&
+    termLengthParam;
 
   return (
     <>
@@ -62,7 +66,25 @@ function Basic() {
               </Card.Header>
               <Card.Body>
                 <Form method="GET" onSubmit={onFormSubmit}>
-                  
+
+                  {/* LOAN DATE INPUT */}
+                  <Row className="mb-3 justify-content-center">
+                    <Col xs={8}>
+                      <FormGroup>
+                        <FormLabel htmlFor="loan_date">Loan Date:</FormLabel>
+                        <InputGroup>
+                          <FormControl
+                            aria-label="Date"
+                            type="month"
+                            id="loan_date"
+                            required
+                            defaultValue={loanDateParam ? loanDateParam : ""}
+                          />
+                        </InputGroup>
+                      </FormGroup>
+                    </Col>
+                  </Row>
+
                   {/* LOAN AMOUNT INPUT */}
                   <Row className="mb-3 justify-content-center">
                     <Col xs={8}>
@@ -177,6 +199,7 @@ function Basic() {
           <Col>
             {showResults && (
               <ResultsSection
+                loanDate={loanDateParam}
                 loanAmount={loanAmountParam}
                 annualInterestRate={annualInterestRateParam}
                 termLength={termLengthParam}

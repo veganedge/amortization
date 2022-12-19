@@ -4,6 +4,7 @@ import { Table, Col, Row } from "react-bootstrap";
 import TableBody from "./TableBody";
 
 const BasicTable = ({
+  loanDate,
   loanAmount,
   monthlyRepaymentAmount,
   monthlyInterestRate,
@@ -32,6 +33,7 @@ const BasicTable = ({
             {/* DYNAMIC TABLE BODY BASED ON INFO FROM BASIC.JS */}
             <tbody>
               <TableBody
+                loanDate={loanDate}
                 loanAmount={loanAmount}
                 monthlyRepaymentAmount={monthlyRepaymentAmount}
                 monthlyInterestRate={monthlyInterestRate}

@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap";
 import * as dayjs from "dayjs";
 
 const TableBody = ({
+  loanDate,
   loanAmount,
   monthlyRepaymentAmount,
   monthlyInterestRate,
@@ -21,7 +22,10 @@ const TableBody = ({
   let rows = [];
   let remainingBalance = loanAmount;
   let rowsKey = 1;
-  let date = dayjs().add(1, "M"); // adding 1 month so payment will be due month after loan is made
+  // Initialize date variable for table
+  const customParseFormat = require('dayjs/plugin/customParseFormat')
+  dayjs.extend(customParseFormat);
+  let date = dayjs(loanDate, "YYYY-MM").add(1, "M"); // making first payment due month after loan is received
 
   // Making rows of table (except last row)
   while (remainingBalance > monthlyRepaymentAmount) {
