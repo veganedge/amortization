@@ -21,11 +21,15 @@ function BasicCalculated({
   return (
     <>
       <Container className="mt-5 mb-5">
+
+        {/* CARD CONTAINING CALCULATED RESULTS OF USER INPUT VALUES */}
         <Row className="justify-content-center">
           <Col xs={10} md={8} lg={6} xl={5} xxl={4}>
             <Card bg="light" border="secondary" className="shadow-lg">
+
+              {/* LOAN DETAILS SECTION */}
               <Card.Header className="text-center">
-                <h4>Loan Details</h4>
+                <h3>Loan Details</h3>
               </Card.Header>
               <Card.Body className="text-center">
                 <h6>Loan Amount: {currencyFormatter.format(loanAmount)}</h6>
@@ -38,6 +42,8 @@ function BasicCalculated({
                   years
                 </h6>
               </Card.Body>
+
+              {/* RESULTS SECTION */}
               <Card.Header className="text-center">
                 <h2>Results</h2>
               </Card.Header>
@@ -46,7 +52,7 @@ function BasicCalculated({
                 <h3 className="text-danger">
                   {currencyFormatter.format(monthlyRepaymentAmount)}
                 </h3>
-                <h5 className="mt-3">Total Interest Paid</h5>
+                <h4 className="mt-3">Total Interest Paid</h4>
                 <h5 className="text-info">
                   {currencyFormatter.format(totalInterestPaid)}
                 </h5>

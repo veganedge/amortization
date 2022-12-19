@@ -17,7 +17,9 @@ import {
 import ResultsSection from "./ResultsSection";
 import Footer from "./Footer";
 
+
 function Basic() {
+
   // Setting the property "searchParams" and initial value for it:
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -50,6 +52,7 @@ function Basic() {
   return (
     <>
       <Container className="mt-5">
+
         {/* CARD CONTAINING FORM OF USER INPUTS TO ENTER */}
         <Row className="justify-content-center">
           <Col xs={10} md={8} lg={6} xl={5} xxl={4}>
@@ -59,6 +62,7 @@ function Basic() {
               </Card.Header>
               <Card.Body>
                 <Form method="GET" onSubmit={onFormSubmit}>
+                  
                   {/* LOAN AMOUNT INPUT */}
                   <Row className="mb-3 justify-content-center">
                     <Col xs={8}>
@@ -182,6 +186,7 @@ function Basic() {
         </Row>
       </Container>
 
+      {/* FOOTER COMPONENT SHOWN AS FIXED/NOT IF USER SUBMITTED INPUT VALUES */}
       {showResults ? <Footer /> : <Footer addClass="fixed-bottom" />}
     </>
   );

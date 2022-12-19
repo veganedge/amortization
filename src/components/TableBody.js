@@ -8,7 +8,8 @@ const TableBody = ({
   monthlyRepaymentAmount,
   monthlyInterestRate,
 }) => {
-  // Create currency formatter
+
+  // Creating currency formatter
   let currencyFormatter = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
@@ -26,8 +27,7 @@ const TableBody = ({
   while (remainingBalance > monthlyRepaymentAmount) {
     // Making YEAR row without calculations
     if (date.get("M") === 0 || rows.length === 0) {
-      // date.get("M") === 0 is if month is JAN
-      // rows.length === 0 is the very first row it will make
+      // if month is JAN || if it's the VERY FIRST ROW OF TABLE
       rows.push(
         <tr key={rowsKey}>
           <td colSpan="4">
@@ -39,7 +39,7 @@ const TableBody = ({
           </td>
         </tr>
       );
-      // Increase key used on rows array elements, so unique for React
+      // Increasing key used on rows array elements, so unique for React
       rowsKey += 1;
     }
 
@@ -63,7 +63,7 @@ const TableBody = ({
     // Increasing month
     date = date.add(1, "M");
 
-    // Increase key used on rows array elements, so unique for React
+    // Increasing key used on rows array elements, so unique for React
     rowsKey += 1;
   }
 
@@ -77,7 +77,7 @@ const TableBody = ({
     </tr>
   );
 
-  // Render/display the rows of table
+  // Rendering/displaying the rows of table
   return rows;
 };
 

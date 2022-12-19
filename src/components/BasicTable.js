@@ -29,7 +29,7 @@ const BasicTable = ({
               </tr>
             </thead>
 
-            {/* Dynamic TABLE BODY based on info from BASIC.JS */}
+            {/* DYNAMIC TABLE BODY BASED ON INFO FROM BASIC.JS */}
             <tbody>
               <TableBody
                 loanAmount={loanAmount}

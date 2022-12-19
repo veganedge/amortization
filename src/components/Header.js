@@ -3,6 +3,8 @@ import { Navbar, Container, Row } from "react-bootstrap";
 
 function Header() {
   return (
+
+    // NAVBAR REACT-BOOTSTRAP COMPONENT, INJECTED AS <header> ELEMENT FOR SEMANTIC HTML
     <Navbar as="header" bg="light" variant="light" className="shadow margin">
       <Container>
         <Row>
