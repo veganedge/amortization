@@ -33,11 +33,11 @@ const TableBody = ({
 }) => {
 
 
-  //1. First, we are going to build a data structure holding all of our repayment data in an easy to use format
+  //1. CREATE A DATA STRUCTURE holding all of our repayment data in an easy to use format
   //=======================================================================================================================
 
 
-  //1a. Initializing everything needed
+  //1a. INITIALIZING EVERYTHING NEEDED
   //==============
 
   // remainingBalance used for iterating over the lifetime of the loan
@@ -62,12 +62,30 @@ const TableBody = ({
   let lastYearChecked = date.format("YYYY");
 
 
-  //1b. Creating data
+  //1b. DEFINE ALL FUNCTIONS used in 1c (Creating data)
   //==============
 
-  while (remainingBalance > 0) {
-    console.log("remainingBalance: ", remainingBalance);
+  // Add previous year's data to total data array
+  const addPreviousYearData = () => {
+    repaymentDataByYear.push({ [lastYearChecked]: singleYearData });
+    // Reset our single year data and enter the new year's month:
+    singleYearData = [];
+    lastYearChecked = date.format("YYYY");
+    console.log("pushed previous year's data to repaymentDataByYear!");
+  }
+  
 
+  // Add current month to the current year's data:
+  const addMonthDataToYearData = () => {
+    singleYearData.push(monthRepaymentData);
+    // Increasing month
+    date = date.add(1, "M");
+  }
+
+
+  // Create current month
+  const createMonthData = () => {
+    console.log("remainingBalance: ", remainingBalance);
     // Calculations to simulate a monthly payment - ternary needed for final monthly payment
     let amountToInterest =
       remainingBalance < monthlyRepaymentAmount
@@ -86,35 +104,32 @@ const TableBody = ({
       remainingBalance,
       month: date.format("MMM"),
     };
-
     console.log("lastYearChecked: ", lastYearChecked);
-    console.log("date: ", date.format("YYYY"));
-
-    if (lastYearChecked !== date.format("YYYY")) {
-      // Iterated into a new year. Add last year's data to repaymentDataByYear array
-      repaymentDataByYear.push({ [lastYearChecked]: singleYearData });
-
-      // Reset our single year data and enter the new year's month we just calculated:
-      singleYearData = [];
-      lastYearChecked = date.format("YYYY");
-      console.log("pushed last year's data to repaymentDataByYear!");
-    }
-
-    // Add this month to the current year's data:
-    singleYearData.push(monthRepaymentData);
-
-    // Increasing month
-    date = date.add(1, "M");
+    console.log("date/current year: ", date.format("YYYY"));
   }
 
-  // Add the remainder data to repaymentDataByYear array
-  repaymentDataByYear.push({ [date.format("YYYY")]: singleYearData });
-  console.log("pushed remaining payments data to repaymentDataByYear!");
+  // Add final year to total data array
+  const addFinalYearData = () => {
+    repaymentDataByYear.push({ [date.format("YYYY")]: singleYearData });
+    console.log("pushed final year data to repaymentDataByYear!");
+  }
 
+  //1c. CREATE DATA
+  //==============
+
+  while (remainingBalance > 0) {
+    createMonthData();
+    if (lastYearChecked !== date.format("YYYY")) {
+      // if (iterated into a new year) {
+      addPreviousYearData();
+    }
+    addMonthDataToYearData();
+  }
+  addFinalYearData();
   console.log("repaymentDataByYear: ", repaymentDataByYear);
 
   
-  //2. now, we build up our view code -- table/accordion/whatever we want with the data structure we created
+  //2. CREATE THE CODE TO RENDER/DISPLAY THE DATA -- table/accordion/etc
   //=====================================================================================================================
 
   // Rendering/displaying the rows of table
@@ -127,32 +142,61 @@ export default TableBody;
 // let rows = [];
 // let rowsKey = 1;
 
-// Making NON-YEAR rows of table
-// rows.push(
-//   <tr key={rowsKey}>
-//     <td className="fw-bold">{date.format("MMM")}</td>
-//     <td>{currencyFormatter.format(amountToPrincipal)}</td>
-//     <td>{currencyFormatter.format(amountToInterest)}</td>
-//     <td className="fw-bold">
-//       {currencyFormatter.format(remainingBalance)}
-//     </td>
-//   </tr>
-// );
+//   // Making rows of table (except last row)
+//   while (remainingBalance > monthlyRepaymentAmount) {
+//     // Making YEAR row without calculations
+//     if (date.get("M") === 0 || rows.length === 0) {
+//       // if month is JAN || if it's the VERY FIRST ROW OF TABLE
+//       rows.push(
+//         <tr key={rowsKey}>
+//           <td colSpan="4">
+//             <div className="d-grid gap-2">
+//               <Button variant="dark" className="table-button fw-bold" size="sm" onClick={toggleHidden}>
+//                 {date.format("YYYY")}
+//               </Button>
+//             </div>
+//           </td>
+//         </tr>
+//       );
+//       // Increasing key used on rows array elements, so unique for React
+//       rowsKey += 1;
+//     }
 
-// if month is JAN || if it's the VERY FIRST ROW OF TABLE
-// rows.push(
-//   <tr key={rowsKey}>
-//     <td colSpan="4">
-//       <div className="d-grid gap-2">
-//         <Button
-//           variant="dark"
-//           className="table-button fw-bold"
-//           size="sm"
-//           onClick={toggleHidden}
-//         >
-//           {date.format("YYYY")}
-//         </Button>
-//       </div>
-//     </td>
-//   </tr>
-// );
+//     // Calculations needed for non-year rows of table
+//     let amountToInterest = (remainingBalance * monthlyInterestRate).toFixed(2);
+//     let amountToPrincipal = (monthlyRepaymentAmount - amountToInterest).toFixed(2);
+//     remainingBalance = (remainingBalance - amountToPrincipal).toFixed(2);
+
+//     // Making NON-YEAR rows of table
+//     rows.push(
+//       <tr key={rowsKey}>
+//         <td className="fw-bold">{date.format("MMM")}</td>
+//         <td>{currencyFormatter.format(amountToPrincipal)}</td>
+//         <td>{currencyFormatter.format(amountToInterest)}</td>
+//         <td className="fw-bold">
+//           {currencyFormatter.format(remainingBalance)}
+//         </td>
+//       </tr>
+//     );
+
+//     // Increasing month
+//     date = date.add(1, "M");
+
+//     // Increasing key used on rows array elements, so unique for React
+//     rowsKey += 1;
+//   }
+
+//   // Making LAST ROW of table if remainingBalance <= monthlyRepaymentAmount (Final payment)
+//   rows.push(
+//     <tr key={rowsKey}>
+//       <td className="fw-bold">{date.format("MMM")}</td>
+//       <td>{currencyFormatter.format(remainingBalance)}</td>
+//       <td>{currencyFormatter.format(0)}</td>
+//       <td className="fw-bold">{currencyFormatter.format(0)}</td>
+//     </tr>
+//   );
+
+//   // Rendering/displaying the rows of table
+//   return rows;
+// };
+
