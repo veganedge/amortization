@@ -3,6 +3,7 @@ import { Table, Col, Row } from "react-bootstrap";
 // Component Imports
 import TableBody from "./TableBody";
 
+
 const BasicTable = ({
   loanDate,
   loanAmount,
@@ -10,6 +11,24 @@ const BasicTable = ({
   monthlyInterestRate,
   termLength
 }) => {
+
+
+  // // onclick handler to toggle rows as hidden/displayed
+  // const toggleHidden = (year) => {
+  //   const tableRows = document.getElementsByClassName(`tr${year}`);
+  //   console.log(tableRows);
+  //   for (let i=0; i < tableRows.length; i++) {
+  //     if(tableRows[i].hasAttribute("hidden")) {
+  //       tableRows[i].removeAttribute("hidden");
+  //     } else {
+  //       tableRows.setAttribute("hidden", "");
+  //     }
+  //   }
+  // }
+
+
+
+
   return (
     <>
       <Row className="justify-content-center">
