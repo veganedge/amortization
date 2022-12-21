@@ -3,7 +3,6 @@ import { Button } from "react-bootstrap";
 // DayJS Imports
 import * as dayjs from "dayjs";
 
-
 // Creating currency formatter
 const currencyFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -16,14 +15,14 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
 const toggleHidden = (year) => {
   const tableRows = document.getElementsByClassName(`tr${year}`);
   console.log(tableRows);
-  for (let i=0; i < tableRows.length; i++) {
-    if(tableRows[i].hasAttribute("hidden")) {
+  for (let i = 0; i < tableRows.length; i++) {
+    if (tableRows[i].hasAttribute("hidden")) {
       tableRows[i].removeAttribute("hidden");
     } else {
       tableRows.setAttribute("hidden", "");
     }
   }
-}
+};
 
 
 const TableBody = ({
@@ -36,41 +35,51 @@ const TableBody = ({
 
   //1. First, we are going to build a data structure holding all of our repayment data in an easy to use format
   //=======================================================================================================================
-  
-  // remainingBalance we will use for iterating over the lifetime of the loan
+
+
+  //1a. Initializing everything needed
+  //==============
+
+  // remainingBalance used for iterating over the lifetime of the loan
   let remainingBalance = loanAmount;
 
-  // Initialize date variable for table
+  // Initialize date variable for table (customParseFormat is necessary for format we want)
   const customParseFormat = require("dayjs/plugin/customParseFormat");
   dayjs.extend(customParseFormat);
-
-  // date of first payment due (a month after loan is received)
+  // Date of first payment due (a month after loan is received)
   let date = dayjs(loanDate, "YYYY-MM").add(1, "M");
 
-  // this will hold all repayment data by year and month, allowing us to display it any way we want, in a table, accordion or anything
+  // Holds all repayment data by year and month, allowing easy access to display it any desired way (table, accordion, etc)
   let repaymentDataByYear = [];
 
-  // this will hold each simulated month's repayment data
+  // Holds each month's repayment data
   let monthRepaymentData = {};
 
+  // Holds all the monthRepaymentData objects for a given year
   let singleYearData = [];
 
-  let allMonthRepaymentData = [];
-
+  // Used in if condition to add a full singleYearData array into the repaymentDataByYear array
   let lastYearChecked = date.format("YYYY");
 
-  // Making rows of table (except last row)
-  while (remainingBalance > 0) {
-    // console.log("remainingBalance: ", remainingBalance);
 
-    // simulate a monthly payment and do calculations
-    let amountToInterest = (remainingBalance * monthlyInterestRate).toFixed(2);
-    let amountToPrincipal = (monthlyRepaymentAmount - amountToInterest).toFixed(
-      2
-    );
+  //1b. Creating data
+  //==============
+
+  while (remainingBalance > 0) {
+    console.log("remainingBalance: ", remainingBalance);
+
+    // Calculations to simulate a monthly payment - ternary needed for final monthly payment
+    let amountToInterest =
+      remainingBalance < monthlyRepaymentAmount
+        ? (0).toFixed(2)
+        : (remainingBalance * monthlyInterestRate).toFixed(2);
+    let amountToPrincipal =
+      remainingBalance < monthlyRepaymentAmount
+        ? remainingBalance
+        : (monthlyRepaymentAmount - amountToInterest).toFixed(2);
     remainingBalance = (remainingBalance - amountToPrincipal).toFixed(2);
 
-    // this month's repayment data
+    // This month's repayment data - from above calculations
     monthRepaymentData = {
       amountToInterest,
       amountToPrincipal,
@@ -82,28 +91,27 @@ const TableBody = ({
     console.log("date: ", date.format("YYYY"));
 
     if (lastYearChecked !== date.format("YYYY")) {
-      //we have iterated into a new year. push last year's data to our repaymentDataByYear
+      // Iterated into a new year. Add last year's data to repaymentDataByYear array
       repaymentDataByYear.push({ [lastYearChecked]: singleYearData });
 
-      //reset our single year data and enter the new year's month we just calculated:
+      // Reset our single year data and enter the new year's month we just calculated:
       singleYearData = [];
       lastYearChecked = date.format("YYYY");
       console.log("pushed last year's data to repaymentDataByYear!");
     }
 
-    //add this month to the current year's data:
+    // Add this month to the current year's data:
     singleYearData.push(monthRepaymentData);
 
     // Increasing month
     date = date.add(1, "M");
   }
 
-  // add the remainder data
+  // Add the remainder data to repaymentDataByYear array
   repaymentDataByYear.push({ [date.format("YYYY")]: singleYearData });
   console.log("pushed remaining payments data to repaymentDataByYear!");
 
   console.log("repaymentDataByYear: ", repaymentDataByYear);
-  console.log("allMonthRepaymentData: ", allMonthRepaymentData);
 
   
   //2. now, we build up our view code -- table/accordion/whatever we want with the data structure we created
