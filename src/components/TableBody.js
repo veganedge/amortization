@@ -12,6 +12,19 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 2,
 });
 
+// onclick handler to toggle rows as hidden/displayed
+const toggleHidden = (year) => {
+  const tableRows = document.getElementsByClassName(`tr${year}`);
+  console.log(tableRows);
+  for (let i=0; i < tableRows.length; i++) {
+    if(tableRows[i].hasAttribute("hidden")) {
+      tableRows[i].removeAttribute("hidden");
+    } else {
+      tableRows.setAttribute("hidden", "");
+    }
+  }
+}
+
 
 const TableBody = ({
   loanDate,
@@ -20,7 +33,8 @@ const TableBody = ({
   monthlyInterestRate,
 }) => {
 
-  //1. First, we are going to build a data structure holding all of our repayment data in an easy to use format (such as by month and year)
+
+  //1. First, we are going to build a data structure holding all of our repayment data in an easy to use format
   //=======================================================================================================================
   
   // remainingBalance we will use for iterating over the lifetime of the loan
@@ -85,7 +99,8 @@ const TableBody = ({
   }
 
   // add the remainder data
-  //repaymentDataByYear.push({ [date.format("YYYY")]: singleYearData });
+  repaymentDataByYear.push({ [date.format("YYYY")]: singleYearData });
+  console.log("pushed remaining payments data to repaymentDataByYear!");
 
   console.log("repaymentDataByYear: ", repaymentDataByYear);
   console.log("allMonthRepaymentData: ", allMonthRepaymentData);
