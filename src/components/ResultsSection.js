@@ -31,6 +31,7 @@ const ResultsSection = ({ loanDate, loanAmount, annualInterestRate, termLength }
         loanAmount={loanAmount}
         monthlyRepaymentAmount={monthlyRepaymentAmount}
         monthlyInterestRate={monthlyInterestRate}
+        termLength={termLength}
       />
     </>
   );

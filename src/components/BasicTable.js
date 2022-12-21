@@ -8,6 +8,7 @@ const BasicTable = ({
   loanAmount,
   monthlyRepaymentAmount,
   monthlyInterestRate,
+  termLength
 }) => {
   return (
     <>
@@ -37,6 +38,7 @@ const BasicTable = ({
                 loanAmount={loanAmount}
                 monthlyRepaymentAmount={monthlyRepaymentAmount}
                 monthlyInterestRate={monthlyInterestRate}
+                termLength={termLength}
               />
             </tbody>
           </Table>
