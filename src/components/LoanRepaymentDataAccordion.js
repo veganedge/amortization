@@ -134,9 +134,6 @@ const LoanRepaymentDataAccordion = ({
   //==============
 
   const createDataAsAccordion = (repaymentDataByYear) => {
-    // Create unique key for each Accordion.Item
-    
-
     repaymentDataByYear.forEach( (yearOfData) => {
       const year = originalDate.format("YYYY");
       // Holds table body rows separated by month
@@ -156,7 +153,7 @@ const LoanRepaymentDataAccordion = ({
         bodyRowsKey += 1;
       };
 
-      // Creating YEARLY Accordion with Table & storing in "displayDataAsAccordion" array
+      // Creating YEARLY Accordions with Table & storing in "displayDataAsAccordion" array
       displayDataAsAccordion.push(
         <Accordion.Item eventKey={eventKey} key={reactKey}>
           <Accordion.Header>{year}</Accordion.Header>
