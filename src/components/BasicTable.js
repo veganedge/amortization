@@ -1,7 +1,7 @@
 // React Bootstrap Imports
-import { Table, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 // Component Imports
-import TableBody from "./TableBody";
+import LoanRepaymentDataAccordion from "./LoanRepaymentDataAccordion";
 
 
 const BasicTable = ({
@@ -12,6 +12,7 @@ const BasicTable = ({
 }) => {
 
 
+  //=========== HOLDING ONTO IN CASE NEED TO SWITCH TO A TABLE AND HIDE YEARS ============
   // // onclick handler to toggle rows as hidden/displayed
   // const toggleHidden = (year) => {
   //   const tableRows = document.getElementsByClassName(`tr${year}`);
@@ -26,39 +27,16 @@ const BasicTable = ({
   // }
 
 
-
-
   return (
     <>
       <Row className="justify-content-center">
         <Col lg={7}>
-          <Table
-            striped
-            bordered
-            hover
-            size="sm"
-            className="border-dark text-center"
-          >
-            {/* TABLE HEADINGS */}
-            <thead>
-              <tr>
-                <th>Month</th>
-                <th>Amount to Principal</th>
-                <th>Amount to Interest</th>
-                <th>Remaining Balance</th>
-              </tr>
-            </thead>
-
-            {/* DYNAMIC TABLE BODY BASED ON INFO FROM BASIC.JS */}
-            <tbody>
-              <TableBody
-                loanDate={loanDate}
-                loanAmount={loanAmount}
-                monthlyRepaymentAmount={monthlyRepaymentAmount}
-                monthlyInterestRate={monthlyInterestRate}
-              />
-            </tbody>
-          </Table>
+          <LoanRepaymentDataAccordion
+            loanDate={loanDate}
+            loanAmount={loanAmount}
+            monthlyRepaymentAmount={monthlyRepaymentAmount}
+            monthlyInterestRate={monthlyInterestRate}
+          />
         </Col>
       </Row>
     </>
