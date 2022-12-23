@@ -39,10 +39,10 @@ const LoanRepaymentDataAccordion = ({
   let originalDate = dayjs(loanDate, "YYYY-MM").add(1, "M");
 
   // Holds all repayment data by year and month, allowing easy access to display it any desired way (table, accordion, etc)
-  let repaymentDataByYear = [];
+  const repaymentDataByYear = [];
 
   // Holds each month's repayment data
-  let monthRepaymentData = {};
+  let monthlyRepaymentData = {};
 
   // Holds all the monthRepaymentData objects for a given year
   let singleYearData = [];
@@ -54,23 +54,18 @@ const LoanRepaymentDataAccordion = ({
   //1b. DEFINE ALL FUNCTIONS used in 1c (Creating data)
   //==============
 
-  // CREATE CURRENT MONTH
-  const computeMonthData = () => {
-    // Calculations to simulate a monthly payment - ternary needed for final monthly payment
-    if (remainingBalance < monthlyRepaymentAmount) {
-      monthlyRepaymentAmount = remainingBalance;
-      var amountToInterest = (0).toFixed(2);
-      var amountToPrincipal = monthlyRepaymentAmount;
-      remainingBalance = (remainingBalance - amountToPrincipal).toFixed(2);
-    } else {
+  // Create current month
+  const computeMonthlyData = () => {
+    // Calculations to simulate a monthly payment - if statement needed for final monthly payment
+    let amountToInterest = (0).toFixed(2);
+    let amountToPrincipal = remainingBalance;
+    if (remainingBalance > monthlyRepaymentAmount) {
       amountToInterest = (remainingBalance * monthlyInterestRate).toFixed(2);
-      amountToPrincipal = (monthlyRepaymentAmount - amountToInterest).toFixed(
-        2
-      );
-      remainingBalance = (remainingBalance - amountToPrincipal).toFixed(2);
+      amountToPrincipal = (monthlyRepaymentAmount - amountToInterest).toFixed(2);;
     }
+    remainingBalance = (remainingBalance - amountToPrincipal).toFixed(2);
     // This month's repayment data - from above calculations
-    monthRepaymentData = {
+    monthlyRepaymentData = {
       amountToInterest,
       amountToPrincipal,
       remainingBalance,
@@ -79,8 +74,8 @@ const LoanRepaymentDataAccordion = ({
   };
 
   // Add current month to the current year's data:
-  const addMonthDataToYearData = () => {
-    singleYearData.push(monthRepaymentData);
+  const addMonthlyDataToYearData = () => {
+    singleYearData.push(monthlyRepaymentData);
     // Increasing month
     date = date.add(1,'month');
   };
@@ -103,16 +98,16 @@ const LoanRepaymentDataAccordion = ({
   //==============
 
   while (remainingBalance > 0) {
-    computeMonthData();
+    computeMonthlyData();
     if (lastYearChecked !== date.format("YYYY")) {
       // if (iterated into a new year) {
       addPreviousYearData();
     }
-    addMonthDataToYearData();
+    addMonthlyDataToYearData();
   }
   addFinalYearData();
 
-
+  
   //2. CREATE THE CODE TO RENDER/DISPLAY THE DATA -- table/accordion/etc
   //=====================================================================================================================
 
@@ -121,28 +116,27 @@ const LoanRepaymentDataAccordion = ({
   //==============
 
   // Holds accordion elements separated by year
-  const displayDataAsAccordion = [];
+  const dataAsAccordion = [];
 
   // Initialize all needed keys so React sees each entry in table as separate entity so less re-renders
   let eventKey = 0;
   let reactKey = 0;
-  let headRowsKey = 0;
-  let bodyRowsKey = 0;
- 
+  let tableHeaderRowsKey = 0;
+  let monthlyTableRowsKey = 0;
+
 
   //2b. DEFINE ALL FUNCTIONS used in 2c (Create display)
   //==============
 
-  const createDataAsAccordion = (repaymentDataByYear) => {
+  const createDataAsAccordion = () => {
     repaymentDataByYear.forEach( (yearOfData) => {
       const year = originalDate.format("YYYY");
       // Holds table body rows separated by month
-      const rows = [];
-      
+      const monthlyTableRows = [];
       // Creating MONTHLY rows for Table Body & storing in "rows" array
       for (let i=0; i<yearOfData[year].length; i++) {
-        rows.push(
-          <tr key={bodyRowsKey}>
+        monthlyTableRows.push(
+          <tr key={monthlyTableRowsKey}>
             <td>{yearOfData[year][i].month}</td>
             <td>{`${currencyFormatter.format(yearOfData[year][i].amountToPrincipal)}`}</td>
             <td>{`${currencyFormatter.format(yearOfData[year][i].amountToInterest)}`}</td>
@@ -150,11 +144,11 @@ const LoanRepaymentDataAccordion = ({
           </tr>
         );
         // Increasing key used on rows array elements, so unique for React
-        bodyRowsKey += 1;
+        monthlyTableRowsKey += 1;
       };
 
       // Creating YEARLY Accordions with Table & storing in "displayDataAsAccordion" array
-      displayDataAsAccordion.push(
+      dataAsAccordion.push(
         <Accordion.Item eventKey={eventKey} key={reactKey}>
           <Accordion.Header>{year}</Accordion.Header>
           <Accordion.Body>
@@ -164,7 +158,7 @@ const LoanRepaymentDataAccordion = ({
             size="sm"
             className="border-dark text-center">
               <thead>
-                <tr key={headRowsKey}>
+                <tr key={tableHeaderRowsKey}>
                   <th>Month</th>
                   <th>Amount To Principal</th>
                   <th>Amount To Interest</th>
@@ -172,7 +166,7 @@ const LoanRepaymentDataAccordion = ({
                 </tr>
               </thead>
               <tbody>
-                {rows}
+                {monthlyTableRows}
               </tbody>
             </Table>
             </Accordion.Body>
@@ -181,7 +175,7 @@ const LoanRepaymentDataAccordion = ({
       // Increasing keys used on rows array elements, so unique for React
       eventKey++;
       reactKey++;
-      headRowsKey += 1;
+      tableHeaderRowsKey++;
       // Iterating to next year
       originalDate = originalDate.add(1, 'y');
     });
@@ -190,7 +184,7 @@ const LoanRepaymentDataAccordion = ({
 
   //2c. CREATE DISPLAY
   //==============
-  createDataAsAccordion(repaymentDataByYear);
+  createDataAsAccordion();
 
 
 
@@ -235,7 +229,7 @@ const LoanRepaymentDataAccordion = ({
 
     // defaultActiveKey prop makes first year open onmount
     <Accordion defaultActiveKey={0}>
-      {displayDataAsAccordion}
+      {dataAsAccordion}
     </Accordion>
 
   );
