@@ -3,6 +3,7 @@ import { Button, Card, Col, Container, Row } from "react-bootstrap";
 // DayJS Imports
 import * as dayjs from "dayjs";
 
+
 function BasicCalculated({
   loanDate,
   loanAmount,
@@ -33,7 +34,7 @@ function BasicCalculated({
         <Row className="justify-content-center">
           <Col xs={10} md={8} lg={6} xl={5} xxl={4}>
             <Card bg="light" border="secondary" className="shadow-lg">
-
+              
               {/* LOAN DETAILS SECTION */}
               <Card.Header className="text-center">
                 <h3>Loan Details</h3>
@@ -62,16 +63,18 @@ function BasicCalculated({
                   {currencyFormatter.format(monthlyRepaymentAmount)}
                 </h5>
                 <h4 className="mt-3">Total Interest Paid</h4>
-                <h5>
-                  {currencyFormatter.format(totalInterestPaid)}
-                </h5>
+                <h5>{currencyFormatter.format(totalInterestPaid)}</h5>
                 <h4 className="mt-3">Total Cost Of Loan</h4>
                 <h5 className="mb-4">
                   {currencyFormatter.format(totalAmountPaid)}
                 </h5>
 
-                {/* DOES NOTHING YET */}
-                <Button type="button" variant="secondary">
+                {/* EMAIL BUTTON */}
+                <Button
+                  type="button"
+                  variant="secondary"
+                  href={`mailto:?body=Follow this link to see the loan information:%0D%0A%0D%0A{copy/paste the URL address from loan here}%0D%0A%0D%0A -{your name here}`}
+                >
                   Email Results
                 </Button>
               </Card.Body>
