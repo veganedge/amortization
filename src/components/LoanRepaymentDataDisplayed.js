@@ -4,7 +4,7 @@ import { Col, Row } from "react-bootstrap";
 import LoanRepaymentDataAccordion from "./LoanRepaymentDataAccordion";
 
 
-const BasicTable = ({
+const LoanRepaymentDataDisplayed = ({
   loanDate,
   loanAmount,
   monthlyRepaymentAmount,
@@ -43,4 +43,4 @@ const BasicTable = ({
   );
 };
 
-export default BasicTable;
+export default LoanRepaymentDataDisplayed;

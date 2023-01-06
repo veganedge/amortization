@@ -4,7 +4,12 @@ import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import * as dayjs from "dayjs";
 
 
-function BasicCalculated({
+// import { useSearchParams } from "react-router-dom";
+// may need this to supply email body with the proper URL to share results
+
+  
+
+function LoanRepaymentCalculations({
   loanDate,
   loanAmount,
   annualInterestRate,
@@ -13,6 +18,23 @@ function BasicCalculated({
   totalInterestPaid,
   totalAmountPaid,
 }) {
+
+
+  // // Leaving this until I have email figured out
+  // let [searchParams] = useSearchParams();
+
+  // console.log(searchParams);
+  // // Getting the searchParams to use as value of inputs if exist:
+  // const loanAmountParam = searchParams.get("loanAmount");
+  // const annualInterestRateParam = searchParams.get("annualInterestRate");
+  // const termLengthParam = searchParams.get("termLength");
+  // const loanDateParam = searchParams.get("loanDate");
+
+  // console.log("loanAmountParam: ", loanAmountParam);
+  // console.log("annualInterestRateParam: ", annualInterestRateParam);
+  // console.log("termLengthParam: ", termLengthParam);
+  // console.log("loanDateParam: ", loanDateParam);
+
 
   // Create currency number formatter.
   let currencyFormatter = new Intl.NumberFormat("en-US", {
@@ -73,7 +95,8 @@ function BasicCalculated({
                 <Button
                   type="button"
                   variant="secondary"
-                  href={`mailto:?body=Follow this link to see the loan information:%0D%0A%0D%0A{copy/paste the URL address from loan here}%0D%0A%0D%0A -{your name here}`}
+                  // href={`mailto:?body=Follow this link to see the loan information: ${window.location}`}
+                  href={`mailto:{EMAIL RECIPIENT}?subject={YOUR SUBJECT HERE}&body=Follow this link to see the loan information: %0D%0A%0D%0A {COPY/PASTE THE URL ADDRESS HERE} %0D%0A%0D%0A -{YOUR NAME HERE}`}
                 >
                   Email Results
                 </Button>
@@ -86,4 +109,4 @@ function BasicCalculated({
   );
 }
 
-export default BasicCalculated;
+export default LoanRepaymentCalculations;

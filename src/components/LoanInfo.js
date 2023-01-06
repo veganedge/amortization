@@ -17,7 +17,7 @@ import {
 import ResultsSection from "./ResultsSection";
 import Footer from "./Footer";
 
-function Basic() {
+function LoanInfo() {
   // Setting the property "searchParams" and initial value for it:
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -215,4 +215,4 @@ function Basic() {
   );
 }
 
-export default Basic;
+export default LoanInfo;

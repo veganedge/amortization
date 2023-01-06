@@ -1,6 +1,6 @@
 // Component Imports
-import BasicCalculated from "./BasicCalculated";
-import BasicTable from "./BasicTable";
+import LoanRepaymentCalculations from "./LoanRepaymentCalculations";
+import LoanRepaymentDataDisplayed from "./LoanRepaymentDataDisplayed";
 
 const ResultsSection = ({ loanDate, loanAmount, annualInterestRate, termLength }) => {
 
@@ -17,7 +17,7 @@ const ResultsSection = ({ loanDate, loanAmount, annualInterestRate, termLength }
 
   return (
     <>
-      <BasicCalculated
+      <LoanRepaymentCalculations
         loanDate={loanDate}
         loanAmount={loanAmount}
         annualInterestRate={annualInterestRate}
@@ -26,7 +26,7 @@ const ResultsSection = ({ loanDate, loanAmount, annualInterestRate, termLength }
         totalInterestPaid={totalInterestPaid}
         totalAmountPaid={totalAmountPaid}
       />
-      <BasicTable
+      <LoanRepaymentDataDisplayed
         loanDate={loanDate}
         loanAmount={loanAmount}
         monthlyRepaymentAmount={monthlyRepaymentAmount}

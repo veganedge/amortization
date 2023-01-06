@@ -245,35 +245,3 @@ const LoanRepaymentDataAccordion = ({
 };
 
 export default LoanRepaymentDataAccordion;
-
-//==================== USE THIS AS INSPIRATION ==============================
-// var AcEntry = React.createClass({
-//   render(){
-//     const {name,text,...other} = this.props;
-//     return(
-//       <Panel {...other} header={name}>
-//         {text}
-//       </Panel>
-//       )
-//   }
-// });
-
-// var App = React.createClass({
-//   render(){
-//     var entries=[
-//       {id:1, name: "first entry", text:"first sample text"},
-//       {id:2, name: "send entry", text:"second sample text"},
-//     ];
-//     var rows=[];
-//     for(var i=0; i<entries.length; i++){
-//       var entry=entries[i];
-//       rows.push(<AcEntry eventKey={entry.id} name={entry.name} text={entry.text} />)
-//     }
-
-//     return (
-//       <Accordion>
-//        {rows}
-//       </Accordion>
-//     )
-//   }
-// });
