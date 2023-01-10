@@ -1,5 +1,8 @@
 // React Bootstrap Imports
-import { Navbar, Container, Row } from "react-bootstrap";
+// import { Navbar, Container, Row } from "react-bootstrap";
+import Navbar from 'react-bootstrap/Navbar';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 
 function Header() {
   return (

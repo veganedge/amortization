@@ -1,7 +1,11 @@
 //React Router Imports
 import { useNavigate } from "react-router-dom";
 // React Bootstrap Imports
-import { Container, Button, Row, Col, Card } from "react-bootstrap";
+import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
 // Component Imports
 import Footer from "./Footer";
 

@@ -1,5 +1,6 @@
 // React Bootstrap Imports
-import { Col, Row } from "react-bootstrap";
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 // Component Imports
 import LoanRepaymentDataAccordion from "./LoanRepaymentDataAccordion";
 

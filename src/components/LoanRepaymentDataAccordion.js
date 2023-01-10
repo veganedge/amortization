@@ -1,5 +1,6 @@
 // React Bootstrap Imports
-import { Accordion, Table } from "react-bootstrap";
+import Accordion from 'react-bootstrap/Accordion';
+import Table from 'react-bootstrap/Table';
 // DayJS Imports
 import * as dayjs from "dayjs";
 
