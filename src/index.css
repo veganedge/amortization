@@ -43,6 +43,12 @@ a {
   color: inherit;
 }
 
+@media screen and (max-width: 480px) {
+  footer {
+    display: none;
+  }
+}
+
 .footer-brand {
   margin-left: 1em;
 }

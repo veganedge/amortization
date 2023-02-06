@@ -143,7 +143,7 @@ function LoanInfo() {
 
                   {/* TERM LENGTH INPUT */}
                   <Row className="mb-4 justify-content-center">
-                    <Col xs={5}>
+                    <Col xs={8}>
                       <Form.Group>
                         <Form.Label htmlFor="term_length">
                           Term Length:
