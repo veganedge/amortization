@@ -13,7 +13,7 @@ import * as dayjs from "dayjs";
 
   
 
-function LoanRepaymentCalculations({
+export default function LoanRepaymentCalculations({
   loanDate,
   loanAmount,
   annualInterestRate,
@@ -48,10 +48,13 @@ function LoanRepaymentCalculations({
     maximumFractionDigits: 2,
   });
 
+
   // Create formatted variables to display in LOAN DETAILS SECTION
   let formattedLoanDate = dayjs(loanDate).format("MMM YYYY");
   let formattedPayoffDate = dayjs(loanDate, "YYYY-MM").add(termLength * 12, "M").format("MMM YYYY");
 
+
+  
   return (
     <>
       <Container className="mt-5 mb-5">
@@ -112,5 +115,3 @@ function LoanRepaymentCalculations({
     </>
   );
 }
-
-export default LoanRepaymentCalculations;

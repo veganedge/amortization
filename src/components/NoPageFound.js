@@ -10,9 +10,11 @@ import Card from 'react-bootstrap/Card';
 import Footer from "./Footer";
 
 
-function NoPageFound() {
+export default function NoPageFound() {
+
   const navigate = useNavigate();
 
+  
   return (
     <>
       <Container className="mt-5 text-center">
@@ -47,5 +49,3 @@ function NoPageFound() {
     </>
   );
 }
-
-export default NoPageFound;

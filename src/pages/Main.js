@@ -4,7 +4,8 @@ import { Routes, Route } from "react-router-dom";
 import LoanInfo from "../components/LoanInfo";
 import NoPageFound from "../components/NoPageFound";
 
-function Main() {
+
+export default function Main() {
   return (
     <main>
       <Routes>
@@ -14,5 +15,3 @@ function Main() {
     </main>
   );
 }
-
-export default Main;

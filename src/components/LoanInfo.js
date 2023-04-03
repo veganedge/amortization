@@ -15,20 +15,24 @@ import FormLabel from "react-bootstrap/FormLabel";
 import ResultsSection from "./ResultsSection";
 import Footer from "./Footer";
 
-function LoanInfo() {
-  // Setting the property "searchParams" and initial value for it:
+
+
+export default function LoanInfo() {
+
+  // Setting the state "searchParams" and initial value for it:
   const [searchParams, setSearchParams] = useSearchParams();
 
+
   // Resetting form/user input values (Reset button onClick event):
-  const resetHandler = () => {
-    setSearchParams();
-  };
+  const resetHandler = () => setSearchParams();
+
 
   // Getting the searchParams to use as value of inputs if exist:
   const loanAmountParam = searchParams.get("loanAmount");
   const annualInterestRateParam = searchParams.get("annualInterestRate");
   const termLengthParam = searchParams.get("termLength");
   const loanDateParam = searchParams.get("loanDate");
+
 
   // Getting the user input values (Calculate button onClick event):
   const onFormSubmit = (event) => {
@@ -39,10 +43,10 @@ function LoanInfo() {
       annualInterestRate: event.target.annual_interest_rate.value,
       termLength: event.target.term_length.value,
     };
-
     // Updating the "searchParams" to the user input values:
     setSearchParams(updatedSearchParams);
   };
+
 
   // Setting showResults to true or false (to conditionally render the ResultsSection component)
   const showResults =
@@ -51,6 +55,8 @@ function LoanInfo() {
     annualInterestRateParam &&
     termLengthParam;
 
+
+    
   return (
     <>
       <Container className="mt-5">
@@ -212,5 +218,3 @@ function LoanInfo() {
     </>
   );
 }
-
-export default LoanInfo;

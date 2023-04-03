@@ -15,6 +15,7 @@ const ResultsSection = ({ loanDate, loanAmount, annualInterestRate, termLength }
   const totalAmountPaid = termLengthInMonths * monthlyRepaymentAmount;
   const totalInterestPaid = totalAmountPaid - loanAmount;
 
+  
   return (
     <>
       <LoanRepaymentCalculations

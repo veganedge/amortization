@@ -1,10 +1,10 @@
 // React Bootstrap Imports
-// import { Navbar, Container, Row } from "react-bootstrap";
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
-function Header() {
+
+export default function Header() {
   return (
 
     // NAVBAR REACT-BOOTSTRAP COMPONENT, INJECTED AS <header> ELEMENT FOR SEMANTIC HTML
@@ -17,5 +17,3 @@ function Header() {
     </Navbar>
   );
 }
-
-export default Header;
