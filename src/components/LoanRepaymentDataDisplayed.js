@@ -5,12 +5,12 @@ import Row from 'react-bootstrap/Row';
 import LoanRepaymentDataAccordion from "./LoanRepaymentDataAccordion";
 
 
-const LoanRepaymentDataDisplayed = ({
+export default function LoanRepaymentDataDisplayed({
   loanDate,
   loanAmount,
   monthlyRepaymentAmount,
   monthlyInterestRate,
-}) => {
+}) {
 
 
   //=========== HOLDING ONTO IN CASE NEED TO SWITCH TO A TABLE AND HIDE YEARS ============
@@ -43,5 +43,3 @@ const LoanRepaymentDataDisplayed = ({
     </>
   );
 };
-
-export default LoanRepaymentDataDisplayed;

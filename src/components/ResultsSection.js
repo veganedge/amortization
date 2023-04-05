@@ -2,7 +2,9 @@
 import LoanRepaymentCalculations from "./LoanRepaymentCalculations";
 import LoanRepaymentDataDisplayed from "./LoanRepaymentDataDisplayed";
 
-const ResultsSection = ({ loanDate, loanAmount, annualInterestRate, termLength }) => {
+
+
+export default function ResultsSection({ loanDate, loanAmount, annualInterestRate, termLength }) {
 
   // Making calculations based on user inputs:
   const termLengthInMonths = termLength * 12.0;
@@ -36,5 +38,3 @@ const ResultsSection = ({ loanDate, loanAmount, annualInterestRate, termLength }
     </>
   );
 };
-
-export default ResultsSection;
