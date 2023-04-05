@@ -5,6 +5,7 @@ import Table from 'react-bootstrap/Table';
 import * as dayjs from "dayjs";
 
 
+
 // INITIALIZING GLOBALLY SCOPED ITEMS
 //=====================================================================================================================
 
@@ -17,9 +18,11 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 2,
 });
 
+
 // Allows custom format when parsing from dayjs date object (customParseFormat is necessary for format we want)
 const customParseFormat = require("dayjs/plugin/customParseFormat");
 dayjs.extend(customParseFormat);
+
 
 // computeMonthlyData:
 // CREATES 1 MONTH'S REPAYMENT DATA
@@ -53,15 +56,16 @@ const computeMonthlyData = ({
   let newRemainingBalance = (remainingBalance - amountToPrincipal);
 
   // return this month's repayment data - from above calculations
-  let monthResult = {
+  let singleMonthData = {
     amountToInterest,
     amountToPrincipal,
     remainingBalance: newRemainingBalance,
     month: date.format("MMM"),
   };
 
-  return monthResult;
+  return singleMonthData;
 };
+
 
 // getLoanLifetimeRepaymentData:
 // CREATES A DATA STRUCTURE holding all of our repayment data in an easy to use format
@@ -82,7 +86,7 @@ const getLoanLifetimeRepaymentData = ({
   let remainingBalance = loanAmount;
 
   // Date of first payment due (a month after loan is received)
-  // This custom format is possible due to line 19-21
+  // This custom format is possible due to line 22-24
   let date = dayjs(loanDate, "YYYY-MM").add(1, "M");
 
   // Holds all repayment data by year and month. (our return object)
@@ -136,6 +140,7 @@ const getLoanLifetimeRepaymentData = ({
 };
 
 
+
 // MAIN REACT COMPONENT DEFINITION THAT WILL BE RETURNED BY THIS FILE
 //=====================================================================================================================
 
@@ -147,12 +152,12 @@ const getLoanLifetimeRepaymentData = ({
 // monthlyInterestRate
 // OUTPUT:
 // Each year's worth of repayment data will be displayed inside an accordion
-const LoanRepaymentDataAccordion = ({
+export default function LoanRepaymentDataAccordion({
   loanDate,
   loanAmount,
   monthlyRepaymentAmount,
   monthlyInterestRate,
-}) => {
+}) {
 
 
   //1. FETCH THE DATA needed to show in the accordions
@@ -175,7 +180,7 @@ const LoanRepaymentDataAccordion = ({
 
   // Holds accordion elements separated by year
   const dataAsAccordion = [];
-  // Necessary to set a defaultActiveKey on first accordion so it's open onmount to start
+  // Required unique key to controlthis item's collapse/expand (bootstrap docs)
   let eventKey = 0;
 
 
@@ -237,12 +242,10 @@ const LoanRepaymentDataAccordion = ({
   //=========================================================================
 
   return (
-    // defaultActiveKey prop makes first year open onmount
+    // defaultActiveKey prop makes first year open onMount
     <Accordion defaultActiveKey={0}>
       {createDataAsAccordion()}
       {dataAsAccordion}
     </Accordion>
   );
 };
-
-export default LoanRepaymentDataAccordion;
