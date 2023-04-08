@@ -59,13 +59,13 @@ export default function LoanInfo() {
     
   return (
     <>
-      <Container className="mt-5">
+      <Container className="short-screen">
 
         {/* CARD CONTAINING FORM OF USER INPUTS TO ENTER */}
         <Row className="justify-content-center">
           <Col xs={10} md={8} lg={6} xl={5} xxl={4}>
             <Card bg="light" border="secondary" className="shadow-lg">
-              <Card.Header className="text-center">
+              <Card.Header className="text-center short-screen-header">
                 <h2>Basic Calculation</h2>
               </Card.Header>
               <Card.Body>
