@@ -75,6 +75,12 @@ a {
   margin-left: 1em;
 }
 
+@media screen and (max-width: 420px) {
+  footer {
+    display: none;
+  }
+}
+
 .bold {
   font-weight: bold;
 }
