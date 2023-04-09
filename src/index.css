@@ -43,6 +43,12 @@ a {
   color: inherit;
 }
 
+.footer-brand {
+  margin-left: 1em;
+}
+
+/* ===== START FIXING ISSUES ON MOBILE SCREEN ===== */
+/* main input form */
 .short-screen {
   margin-top: 3rem;
 }
@@ -59,6 +65,7 @@ a {
   }
 }
 
+/* "basic calculations" header */
 @media screen and (max-width: 374px) and (max-height: 655px) {
   .short-screen-header {
     display: none;
@@ -71,16 +78,10 @@ a {
   }
 }
 
-.footer-brand {
-  margin-left: 1em;
-}
-
+/* hide footer on mobile */
 @media screen and (max-width: 420px) {
   footer {
     display: none;
   }
 }
-
-.bold {
-  font-weight: bold;
-}
+/* ===== END FIXING ISSUES ON MOBILE SCREEN ===== */

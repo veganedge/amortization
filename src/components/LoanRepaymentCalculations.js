@@ -24,7 +24,7 @@ export default function LoanRepaymentCalculations({
 }) {
 
 
-  // // Leaving this until I have email figured out
+  // ===== Leaving this until I have email figured out =====
   // let [searchParams] = useSearchParams();
 
   // console.log(searchParams);
